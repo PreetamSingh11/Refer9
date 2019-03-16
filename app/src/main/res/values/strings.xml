@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">Refer9</string>
+    <string name="toolbar_heading">Refer9</string>
+    <string name="more_vert">This is use of setting or sign out etc.</string>
+    <string name="appbar_heading">Refer9</string>
+    <string name="profileDesc">User Profile</string>
+    <string name="title_activity_login">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="create_account">Create an Account</string>
+    <string name="skip_text">Skip</string>
+    <string name="prompt_name">Name</string>
+    <string name="register">Register</string>
+
+    <string name="logo_contentDesc">Logo Image</string>
+
+    <string name="setting_desc">This will load setting and others.</string>
+    <string name="search_button_desc">Search button</string>
+
+    <string name="setting">Setting</string>
+    <string name="finance_icon_desc">Finance Icon</string>
+    <string name="finance">Finance</string>
+
+    <!--Finance Activity-->
+    <string name="textureImage_desc">Image as text box background</string>
+    <string name="next_button_text">Next>></string>
+    <string name="wheel_icon_desc">Wheel Items Icon</string>
+
+    <!--Financial Services-->
+    <string name="loan">Loan</string>
+    <string name="insurance">Insurance</string>
+    <string name="mutual_fund">Mutual Fund</string>
+    <string name="fixed_deposit">Fixed Deposit</string>
+    <string name="equity">Equity</string>
+
+    <string name="loan_description">Refer for Loan with no hassle, no guarantee and starting from Rs 20,000, from a wide range of financial institutions.</string>
+    <string name="insurance_description">Refer someone in need of insure his/her medical, financial or life with minimum as low as Rs 100/month.</string>
+    <string name="mutualFund_description">Help people to shape for better tomorrow. Make them to save for future by starting an investment as low as Rs 500/month.</string>
+    <string name="fixedDeposit_description">Fixed deposits are investment instruments offered by banks and non-banking financial companies, where you can deposit money for a higher rate of interest than savings accounts.</string>
+    <string name="equity_description">Equity represents the amount of money that would be returned to a company’s shareholders if all of the assets were liquidated and all of the company\'s debt was paid off.</string>
+
+
+    <!--Refer Details Activity-->
+    <string name="refer_detail">Refer Details</string>
+    <string name="nameHint">Name*</string>
+    <string name="mobileNumberHint">Mobile Number*</string>
+    <string name="emailHint">Email</string>
+    <string name="occupationHint">Occupation</string>
+    <string name="amountHint">Amount</string>
+    <string name="referButton">Refer</string>
+
+    <string name="loan_type_hint">Loan Type*</string>
+    <string name="bank_name_hint">Select Bank*</string>
+    <string name="state_hint">State*</string>
+    <string name="city_hint">City*</string>
+
+</resources>

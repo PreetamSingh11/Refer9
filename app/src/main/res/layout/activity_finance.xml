@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.FinanceActivity">
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="@string/finance"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+
+        <View
+                android:id="@+id/hLine"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/colorPrimaryDark"/>
+
+        <TextView
+                android:id="@+id/descriptionHeading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
+                tools:text="Loan"
+                android:textSize="26sp"
+                android:textStyle="bold"/>
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="350dp">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp">
+
+                <ImageView
+                        android:id="@+id/textureImage"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:contentDescription="@string/textureImage_desc"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:alpha=".10"/>
+
+                <TextView
+                        android:id="@+id/description"
+                        android:textStyle="bold|italic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="22dp"
+                        android:layout_marginEnd="22dp"
+                        android:gravity="center"
+                        android:textSize="20sp"/>
+
+            </RelativeLayout>
+
+
+        </ScrollView>
+
+
+        <Button
+                android:id="@+id/nextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_shape"
+                android:onClick="openReferDetails"
+                android:text="@string/next_button_text"
+                android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+        <github.hellocsl.cursorwheel.CursorWheelLayout
+                android:id="@+id/wheel_image"
+                android:layout_width="500dp"
+                android:layout_height="360dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="-150dp"
+                app:wheelBackgroundColor="#5e88ff"
+                app:wheelCursorColor="@color/colorPrimaryDark"
+                app:wheelCursorHeight="10dp"
+                app:wheelFlingValue="600"
+                app:wheelItemRotateMode="none"
+                app:wheelSelectedAngle="270">
+
+        </github.hellocsl.cursorwheel.CursorWheelLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
