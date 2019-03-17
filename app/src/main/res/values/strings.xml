@@ -62,4 +62,14 @@
     <string name="state_hint">State*</string>
     <string name="city_hint">City*</string>
 
+
+    <!--Navigation menu-->
+    <string name="nav_header_title">Refer9</string>
+    <string name="user">User</string>
+    <string name="refer_details_title">Refer Details</string>
+    <string name="settings_title">Setting</string>
+    <string name="about_us_title">About us</string>
+    <string name="terms_and_conditions_title">Terms &amp; Conditions</string>
+    <string name="help_title">Help</string>
+
 </resources>

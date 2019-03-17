@@ -6,8 +6,10 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import com.refer.android.refer9.R
 import kotlinx.android.synthetic.main.activity_main.*
+import utils.ToastServices
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,10 +23,33 @@ class MainActivity : AppCompatActivity() {
         getLoginStatus()
         setUserName()
 
-        profile.setOnClickListener{
-            login(it)
+        menu_icon.setOnClickListener{
+            drawerLayout.openDrawer(GravityCompat.START)
         }
 
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            menuItem.isChecked=true
+            drawerLayout.closeDrawers()
+            when(menuItem.itemId){
+                R.id.user->{
+                    ToastServices.sToast(this,"Profile")
+                    login()
+                }
+                R.id.refer_details->{
+                    ToastServices.sToast(this,"Refer Details")
+                }
+                R.id.about_us->{
+                    ToastServices.sToast(this,"About us")
+                }
+                R.id.t_and_c->{
+                    ToastServices.sToast(this,"Terms an Conditions")
+                }
+                R.id.help->{
+                    ToastServices.sToast(this,"Help")
+                }
+            }
+            true
+        }
     }
 
     private fun getLoginStatus() {
@@ -38,12 +63,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUserName() {
-        val userName = sharedPreferences.getString("USER_NAME", "Anonymous!")
-        greet_text.text = userName
+       // val userName = sharedPreferences.getString("USER_NAME", "Anonymous!")
+        //greet_text.text = userName
     }
 
     @Suppress("UNUSED_PARAMETER")
-    private fun login(v: View) {
+    private fun login() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
