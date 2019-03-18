@@ -36,6 +36,8 @@ dependencies {
 
     implementation 'github.hellocsl:CursorWheelLayout:1.1.0' //cursor wheel layout
 
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'

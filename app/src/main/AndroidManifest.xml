@@ -16,24 +16,24 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".PieChartActivity">
+        </activity>
         <activity
                 android:name=".activities.ReferDetailActivity"
                 android:screenOrientation="portrait"/>
-
         <activity
                 android:name=".activities.FinanceActivity"
                 android:screenOrientation="portrait"/>
-
-        <activity android:name=".activities.SignUpActivity"
-                  android:screenOrientation="portrait"/>
-
+        <activity
+                android:name=".activities.SignUpActivity"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name=".activities.LoginActivity"
                 android:label="@string/title_activity_login"
                 android:screenOrientation="portrait"/>
-
-        <activity android:name=".activities.MainActivity"
-                  android:screenOrientation="portrait">
+        <activity
+                android:name=".activities.MainActivity"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
