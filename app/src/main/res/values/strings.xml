@@ -71,5 +71,8 @@
     <string name="about_us_title">About us</string>
     <string name="terms_and_conditions_title">Terms &amp; Conditions</string>
     <string name="help_title">Help</string>
+    <string name="signOut_title">Sign Out</string>
+    <string name="user_Icon">User Image or Icon</string>
+    <string name="anonymous">Hi Anonymous!</string>
 
 </resources>

@@ -60,7 +60,7 @@
                     style="@style/TextInputLayout_style">
 
                 <AutoCompleteTextView
-                        android:id="@+id/email"
+                        android:id="@+id/login_email"
                         style="@style/AutoCompleteTextView_style"
                         android:hint="@string/prompt_email"
                         android:inputType="textEmailAddress"/>

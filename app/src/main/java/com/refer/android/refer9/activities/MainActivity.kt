@@ -19,48 +19,55 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
+import com.google.firebase.auth.FirebaseAuth
 import com.refer.android.refer9.R
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.navigation_header.view.*
+import utils.MySharedPreferences
 import utils.ToastServices
 
-class MainActivity : AppCompatActivity() {
 
-    private lateinit var sharedPreferences: SharedPreferences
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        setContentView(R.layout.activity_main)
+        setContentView(com.refer.android.refer9.R.layout.activity_main)
 
         getLoginStatus()
-        setUserName()
+        setUserProfile()
 
         getPieChart()
 
-        menu_icon.setOnClickListener{
+        navigationView.getHeaderView(0).userProfile.setOnClickListener {
+            login()
+        }
+
+        menu_icon.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
-            menuItem.isChecked=true
+            menuItem.isChecked = true
             drawerLayout.closeDrawers()
-            when(menuItem.itemId){
-                R.id.user->{
-                    ToastServices.sToast(this,"Profile")
-                    login()
+            when (menuItem.itemId) {
+                com.refer.android.refer9.R.id.refer_details -> {
+                    ToastServices.sToast(this, "Refer Details")
                 }
-                R.id.refer_details->{
-                    ToastServices.sToast(this,"Refer Details")
+                com.refer.android.refer9.R.id.about_us -> {
+                    ToastServices.sToast(this, "About us")
                 }
-                R.id.about_us->{
-                    ToastServices.sToast(this,"About us")
+                com.refer.android.refer9.R.id.t_and_c -> {
+                    ToastServices.sToast(this, "Terms an Conditions")
                 }
-                R.id.t_and_c->{
-                    ToastServices.sToast(this,"Terms an Conditions")
+                com.refer.android.refer9.R.id.help -> {
+                    ToastServices.sToast(this, "Help")
                 }
-                R.id.help->{
-                    ToastServices.sToast(this,"Help")
+                com.refer.android.refer9.R.id.signOut -> {
+                    FirebaseAuth.getInstance().signOut()
+                    MySharedPreferences.setPref(this, "LOGIN_STATUS", false)
+                    setUserProfile()
                 }
             }
             true
@@ -68,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getPieChart() {
-        chart.setBackgroundColor(Color.WHITE)
+        chart.setBackgroundColor(Color.TRANSPARENT)
 
         moveOffScreen()
 
@@ -98,13 +105,13 @@ class MainActivity : AppCompatActivity() {
         chart.rotationAngle = 180f
         chart.setCenterTextOffset(0F, -20F)
 
-        setData(3,100f)
+        setData(3, 100f)
 
         chart.animateY(1400, Easing.EaseInOutQuad)
 
         chart.setEntryLabelColor(Color.WHITE)
         chart.setEntryLabelTypeface(Typeface.DEFAULT)
-        chart.setEntryLabelTextSize(12f)
+        chart.setEntryLabelTextSize(16f)
     }
 
     private fun moveOffScreen() {
@@ -113,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
 
         val height = displayMetrics.heightPixels
-        val offset = (height * 0.3).toInt() /* percent to move */
+        val offset = (height * 0.2).toInt() /* percent to move */
 
         val rlParams = chart.layoutParams as RelativeLayout.LayoutParams
         rlParams.setMargins(16, 16, 16, -offset)
@@ -134,11 +141,11 @@ class MainActivity : AppCompatActivity() {
             values.add(PieEntry((Math.random() * range + range / 5).toFloat()))
         }
 
-        val dataSet = PieDataSet(values,"User Data")
+        val dataSet = PieDataSet(values, "User Data")
         dataSet.sliceSpace = 3f
         dataSet.selectionShift = 5f
 
-        dataSet.setColors(Color.parseColor("#00ff00"),Color.parseColor("#FFBF00"),Color.parseColor("#ff0000"))
+        dataSet.setColors(Color.parseColor("#00ff00"), Color.parseColor("#FFBF00"), Color.parseColor("#ff0000"))
 
         val data = PieData(dataSet)
         data.setValueFormatter(PercentFormatter())
@@ -151,18 +158,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getLoginStatus() {
-        sharedPreferences = getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
-        val loginStatus = sharedPreferences.getBoolean("LOGIN_STATUS", false)
-        val loginSkip = sharedPreferences.getBoolean("LOGIN_SKIP", false)
-        if (!loginStatus && !loginSkip) {
+        val loginStatus = MySharedPreferences.getPref(this,"LOGIN_STATUS", false)
+        val loginSkip = MySharedPreferences.getPref(this,"LOGIN_SKIP", false)
+        if (!loginStatus!! && !loginSkip!!) {
             val i = Intent(this, LoginActivity::class.java)
             startActivity(i)
         }
     }
 
-    private fun setUserName() {
-       // val userName = sharedPreferences.getString("USER_NAME", "Anonymous!")
-        //greet_text.text = userName
+    private fun setUserProfile() {
+        if (MySharedPreferences.getPref(this, "LOGIN_STATUS", false)!!) {
+            val userNameValue = MySharedPreferences.getPref(this, "USER_NAME", "Anonymous!")
+            navigationView.getHeaderView(0).userName.text = userNameValue
+            navigationView.menu.findItem(R.id.signOut).isEnabled = true
+            navigationView.menu.findItem(R.id.refer_details).isEnabled = true
+        } else{
+            navigationView.getHeaderView(0).userName.text = resources.getString(R.string.anonymous)
+            navigationView.menu.findItem(R.id.signOut).isEnabled = false
+            navigationView.menu.findItem(R.id.refer_details).isEnabled = false
+        }
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -176,6 +190,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, FinanceActivity::class.java)
         startActivity(intent)
     }
+
     @Suppress("UNUSED_PARAMETER")
     fun openHealth(view: View) {
     }
