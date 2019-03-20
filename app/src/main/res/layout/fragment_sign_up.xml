@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        tools:context=".SignUpFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextBox_style"
+            android:hint="@string/nameHint">
+
+        <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputBox_style"
+                android:id="@+id/signUp_name_box"
+                android:inputType="textCapWords" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextBox_style"
+            android:hint="@string/emailHint">
+
+        <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputBox_style"
+                android:id="@+id/signUp_email_box"
+                android:inputType="textEmailAddress"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextBox_style"
+            app:passwordToggleEnabled="true"
+            android:hint="@string/prompt_password">
+
+        <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputBox_style"
+                android:id="@+id/signUp_password_box"
+                android:inputType="textPassword"
+                android:drawablePadding="10dp"
+                android:drawableEnd="@drawable/ic_visibility_off_black_24dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+            android:text="@string/register"
+            style="@style/Button_style" />
+
+</LinearLayout>

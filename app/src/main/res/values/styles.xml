@@ -24,7 +24,11 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <!--Home activity styles-->
+    <!--
+
+            Home activity styles _____________________________________________
+
+    -->
 
     <style name="GridLayout_style">
         <item name="android:layout_width">match_parent</item>
@@ -86,5 +90,46 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">6dp</item>
     </style>
+
+    <!--
+
+        Login Activity Styles ___________________________________________________
+
+    -->
+
+    <style name="TextBox_style" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TextInputBox_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Button_style" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+        <item name="strokeColor">@color/colorAccent</item>
+        <item name="cornerRadius">30dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TabButton_style" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_marginTop">-7dp</item>
+        <item name="android:layout_marginBottom">-6dp</item>
+        <item name="android:layout_marginStart">-5dp</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">0dp</item>
+    </style>
+
 
 </resources>

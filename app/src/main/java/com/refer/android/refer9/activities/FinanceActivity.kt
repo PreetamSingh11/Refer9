@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.refer.android.refer9.R
 import github.hellocsl.cursorwheel.CursorWheelLayout
+import kotlinx.android.synthetic.main.activity_finance.*
 import models.WheelData
 import utils.ToastServices
 import java.util.*
@@ -80,10 +81,14 @@ class FinanceActivity : AppCompatActivity(), CursorWheelLayout.OnMenuSelectedLis
     private fun setLayout(imageDescription: String) {
         desc.text = " "
         heading.text = imageDescription
+        nextButton.isEnabled=false
+        nextButton.text=resources.getText(R.string.coming_soon_text)
         when (imageDescription) {
             "Loan" -> {
                 description = resources.getString(R.string.loan_description)
                 backgroundIcon.setImageResource(R.drawable.loan)
+                nextButton.isEnabled=true
+                nextButton.text=resources.getText(R.string.next_button_text)
             }
             "Mutual Fund" -> {
                 description = resources.getString(R.string.mutualFund_description)

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:orientation="vertical"
+        tools:context=".SignInFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextBox_style"
+            android:hint="@string/emailHint">
+
+        <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputBox_style"
+                android:id="@+id/signIn_email_box"
+                android:inputType="textEmailAddress"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextBox_style"
+            app:passwordToggleEnabled="true"
+            android:hint="@string/prompt_password">
+
+        <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputBox_style"
+                android:id="@+id/signIn_password_box"
+                android:inputType="textPassword"
+                android:drawablePadding="10dp"
+                android:drawableEnd="@drawable/ic_visibility_off_black_24dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+            android:text="@string/action_sign_in"
+            style="@style/Button_style" />
+
+    <com.google.android.material.button.MaterialButton
+            android:text="@string/google"
+            style="@style/Button_style" />
+
+</LinearLayout>
