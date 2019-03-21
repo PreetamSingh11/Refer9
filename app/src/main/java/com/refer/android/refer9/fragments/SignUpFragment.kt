@@ -1,4 +1,4 @@
-package com.refer.android.refer9
+package com.refer.android.refer9.fragments
 
 
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.refer.android.refer9.R
 
 class SignUpFragment : Fragment() {
 

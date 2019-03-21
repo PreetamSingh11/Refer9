@@ -1,8 +1,6 @@
 package com.refer.android.refer9.activities
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -23,8 +21,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.refer.android.refer9.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigation_header.view.*
-import utils.MySharedPreferences
-import utils.ToastServices
+import com.refer.android.refer9.utils.MySharedPreferences
+import com.refer.android.refer9.utils.ToastServices
 
 
 class MainActivity : AppCompatActivity() {

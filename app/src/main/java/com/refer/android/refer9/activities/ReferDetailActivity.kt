@@ -9,9 +9,9 @@ import com.refer.android.refer9.R
 import kotlinx.android.synthetic.main.activity_refer_detail.*
 import org.json.JSONException
 import org.json.JSONObject
-import utils.ArrayListServices
-import utils.JsonServices
-import utils.KeyboardServices
+import com.refer.android.refer9.utils.ArrayListServices
+import com.refer.android.refer9.utils.JsonServices
+import com.refer.android.refer9.utils.KeyboardServices
 
 class ReferDetailActivity : AppCompatActivity() {
 

@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.refer.android.refer9.R
 import kotlinx.android.synthetic.main.activity_signup.*
-import utils.KeyboardServices
+import com.refer.android.refer9.utils.KeyboardServices
 
 class SignUpActivity : AppCompatActivity() {
 

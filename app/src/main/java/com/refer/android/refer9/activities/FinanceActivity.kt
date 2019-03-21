@@ -1,6 +1,6 @@
 package com.refer.android.refer9.activities
 
-import adapters.WheelAdapter
+import com.refer.android.refer9.adapters.WheelAdapter
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.refer.android.refer9.R
 import github.hellocsl.cursorwheel.CursorWheelLayout
 import kotlinx.android.synthetic.main.activity_finance.*
-import models.WheelData
-import utils.ToastServices
+import com.refer.android.refer9.models.WheelData
+import com.refer.android.refer9.utils.ToastServices
 import java.util.*
 
 class FinanceActivity : AppCompatActivity(), CursorWheelLayout.OnMenuSelectedListener {

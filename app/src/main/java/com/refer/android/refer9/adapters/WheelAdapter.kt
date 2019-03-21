@@ -1,4 +1,4 @@
-package adapters
+package com.refer.android.refer9.adapters
 
 
 import android.annotation.SuppressLint
@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.refer.android.refer9.R
 import github.hellocsl.cursorwheel.CursorWheelLayout
-import models.WheelData
+import com.refer.android.refer9.models.WheelData
 
 class WheelAdapter : CursorWheelLayout.CycleWheelAdapter {
 

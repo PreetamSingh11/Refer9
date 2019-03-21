@@ -81,5 +81,10 @@
     <string name="fragmentSignUp">Sign Up Fragment</string>
     <string name="fragmentSignIn">Sign In Fragment</string>
     <string name="login_background_texture">background texture</string>
+    <string name="google_logo">Google logo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_out_text">Sign Out</string>
 
 </resources>
