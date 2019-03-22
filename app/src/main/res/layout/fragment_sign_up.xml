@@ -6,6 +6,7 @@
         android:layout_height="match_parent"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
+        android:id="@+id/signUp_fragment_id"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         tools:context=".fragments.SignUpFragment">
@@ -48,6 +49,7 @@
 
     <com.google.android.material.button.MaterialButton
             android:text="@string/register"
+            android:id="@+id/signUp_button"
             style="@style/Button_style" />
 
 </LinearLayout>

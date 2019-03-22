@@ -2,6 +2,7 @@ package com.refer.android.refer9.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,9 @@ class SignInFragment : Fragment() {
             rootView.log_out_page.visibility=View.VISIBLE
         }
 
+        rootView.signIn_fragment_id.setOnClickListener{
+            KeyboardServices.hide(requireActivity())
+        }
 
         rootView.sign_out_button.setOnClickListener{
             signOut()
@@ -114,14 +118,18 @@ class SignInFragment : Fragment() {
         val email = signIn_email_box.text.toString().trim { it <= ' ' }
         val password = signIn_password_box.text.toString().trim { it <= ' ' }
 
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    onSuccessfulLogin()
-                } else {
-                    ToastServices.sToast(requireContext(), "Login Failed")
+        if (!TextUtils.isEmpty(email)&&!TextUtils.isEmpty(password)){
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        onSuccessfulLogin()
+                    } else {
+                        ToastServices.sToast(requireContext(), "Login Failed")
+                    }
                 }
-            }
+        } else{
+            ToastServices.lToast(requireContext(),"Fill Values")
+        }
     }
 
     private fun onSuccessfulLogin() {

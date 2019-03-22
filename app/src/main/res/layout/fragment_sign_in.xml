@@ -9,6 +9,7 @@
         android:paddingEnd="30dp"
         android:orientation="vertical"
         android:clipToPadding="false"
+        android:id="@+id/signIn_fragment_id"
         tools:context=".fragments.SignInFragment">
 
     <LinearLayout
