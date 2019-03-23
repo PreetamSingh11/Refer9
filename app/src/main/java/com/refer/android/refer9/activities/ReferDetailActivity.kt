@@ -71,7 +71,6 @@ class ReferDetailActivity : AppCompatActivity() {
 
         states_list.onItemClickListener = AdapterView.OnItemClickListener{parent,_,position,_ ->
             val selectedItem = parent.getItemAtPosition(position).toString()
-            ToastServices.customToast(this,selectedItem)
             val sortedCities = ArrayListServices.sortAsc(getCitiesList(selectedItem))
             populateList(cities_names,sortedCities)
         }

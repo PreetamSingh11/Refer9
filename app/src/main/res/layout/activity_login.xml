@@ -22,14 +22,15 @@
                 android:layout_gravity="center">
 
             <ImageView
-                    android:src="@drawable/brick"
+                    android:src="@drawable/background_texture"
+                    android:alpha=".3"
                     android:layout_width="match_parent"
                     android:scaleType="center"
                     android:layout_height="200dp"
                     android:contentDescription="@string/login_background_texture"/>
 
             <ImageView
-                    android:src="@drawable/logo"
+                    android:src="@drawable/ic_logo"
                     android:layout_centerInParent="true"
                     android:layout_width="150dp"
                     android:layout_height="100dp"

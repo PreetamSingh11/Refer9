@@ -15,8 +15,16 @@ object ToastServices {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
     }
 
-    fun customToast(context: Context, msg: String){
-        val mdToast = MDToast.makeText(context, msg, MDToast.LENGTH_SHORT, MDToast.TYPE_INFO);
-        mdToast.show()
+    fun customToastInfo(context: Context, msg: String){
+        MDToast.makeText(context, msg, MDToast.LENGTH_SHORT, MDToast.TYPE_INFO).show()
+    }
+    fun customToastSuccess(context: Context, msg: String){
+        MDToast.makeText(context, msg, MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show()
+    }
+    fun customToastWarning(context: Context, msg: String){
+        MDToast.makeText(context, msg, MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING).show()
+    }
+    fun customToastError(context: Context, msg: String){
+        MDToast.makeText(context, msg, MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR).show()
     }
 }
