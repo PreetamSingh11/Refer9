@@ -149,7 +149,7 @@ class ReferDetailActivity : AppCompatActivity() {
             intent.putExtra("amount",refereeAmount)
             startActivity(intent)
         } else {
-            ToastServices.customToast(this,"Complete Details")
+            ToastServices.customToastError(this,"Complete Details")
         }
     }
 }

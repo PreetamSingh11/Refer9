@@ -97,12 +97,14 @@
 
                 <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="-160dp">
 
-                    <com.github.mikephil.charting.charts.PieChart
-                            android:id="@+id/chart"
+                    <fragment
+                            android:name="com.refer.android.refer9.fragments.ChartFragment"
+                            android:id="@+id/fragment_layout_id"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="wrap_content"/>
 
                 </RelativeLayout>
 
@@ -213,7 +215,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="true"
+            android:fitsSystemWindows="false"
             app:headerLayout="@layout/navigation_header"
             app:menu="@menu/navigation_items"/>
 </androidx.drawerlayout.widget.DrawerLayout>

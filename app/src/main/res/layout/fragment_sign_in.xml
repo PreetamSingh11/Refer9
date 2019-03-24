@@ -12,90 +12,91 @@
         android:id="@+id/signIn_fragment_id"
         tools:context=".fragments.SignInFragment">
 
-    <LinearLayout
-            android:id="@+id/signIn_page"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextBox_style"
-                android:hint="@string/emailHint">
-
-            <com.google.android.material.textfield.TextInputEditText
-                    style="@style/TextInputBox_style"
-                    android:id="@+id/signIn_email_box"
-                    android:inputType="textEmailAddress"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextBox_style"
-                app:passwordToggleEnabled="true"
-                android:hint="@string/prompt_password">
-
-            <com.google.android.material.textfield.TextInputEditText
-                    style="@style/TextInputBox_style"
-                    android:id="@+id/signIn_password_box"
-                    android:inputType="textPassword"
-                    android:drawablePadding="10dp"
-                    android:drawableEnd="@drawable/ic_visibility_off_black_24dp"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-                android:text="@string/action_sign_in"
-                android:id="@+id/signIn_Button"
-                style="@style/Button_style"/>
-
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/shadow"/>
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:weightSum="2"
-                android:layout_marginTop="16dp">
-
-            <com.google.android.gms.common.SignInButton
-                    android:id="@+id/google_sign_in_button"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-
-            <Button
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:id="@+id/skip_button"
-                    android:text="@string/skip_text"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-            android:id="@+id/log_out_page"
-            android:orientation="vertical"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:id="@+id/sign_out_button"
-                android:text="@string/sign_out_text"
-                android:textAllCaps="false"
-                android:elevation="3dp"
-                android:padding="16dp"
+                android:id="@+id/signIn_page"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextBox_style"
+                    android:hint="@string/emailHint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInputBox_style"
+                        android:id="@+id/signIn_email_box"
+                        android:inputType="textEmailAddress"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextBox_style"
+                    app:passwordToggleEnabled="true"
+                    android:hint="@string/prompt_password">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInputBox_style"
+                        android:id="@+id/signIn_password_box"
+                        android:inputType="textPassword"
+                        android:drawablePadding="10dp"
+                        android:drawableEnd="@drawable/ic_visibility_off_black_24dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                    android:text="@string/action_sign_in"
+                    android:id="@+id/signIn_Button"
+                    style="@style/Button_style"/>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/shadow"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:weightSum="2"
+                    android:layout_marginTop="16dp">
+
+                <com.google.android.gms.common.SignInButton
+                        android:id="@+id/google_sign_in_button"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                <Button
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:id="@+id/skip_button"
+                        android:text="@string/skip_text"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/log_out_page"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:id="@+id/sign_out_button"
+                    android:layout_gravity="center"
+                    android:text="@string/sign_out_text"
+                    android:textAllCaps="false"
+                    android:elevation="3dp"
+                    android:padding="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
 </LinearLayout>

@@ -22,7 +22,6 @@ import com.refer.android.refer9.utils.ToastServices
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 
-
 class SignInFragment : Fragment() {
 
     private lateinit var rootView: View

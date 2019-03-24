@@ -16,15 +16,16 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.ConfirmActivity"
-                  android:screenOrientation="portrait"/>
+
+        <activity
+                android:name=".activities.ConfirmActivity"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name=".activities.ReferDetailActivity"
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".activities.FinanceActivity"
                 android:screenOrientation="portrait"/>
-
         <activity
                 android:name=".activities.LoginActivity"
                 android:label="@string/title_activity_login"
