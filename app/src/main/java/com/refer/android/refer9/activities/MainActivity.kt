@@ -70,8 +70,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUserProfile() {
         if (MySharedPreferences.getPref(this, "LOGIN_STATUS", false)!!) {
-            val userNameValue = MySharedPreferences.getPref(this, "USER_NAME", "Anonymous!")
-            navigationView.getHeaderView(0).userName.text = userNameValue
+            if ("EMAIL" == MySharedPreferences.getPref(this,"LOGIN_TYPE","EMAIL")){
+                val userNameValue = MySharedPreferences.getPref(this, "USER_NAME_EMAIL", "Anonymous!")
+                navigationView.getHeaderView(0).userName.text = userNameValue
+            } else {
+                val userNameValue = MySharedPreferences.getPref(this, "USER_NAME_GMAIL", "Anonymous!")
+                navigationView.getHeaderView(0).userName.text = userNameValue
+            }
             navigationView.menu.findItem(R.id.signOut).isEnabled = true
             navigationView.menu.findItem(R.id.refer_details).isEnabled = true
         } else{

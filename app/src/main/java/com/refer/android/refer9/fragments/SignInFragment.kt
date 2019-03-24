@@ -1,12 +1,19 @@
 package com.refer.android.refer9.fragments
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
 import android.text.TextUtils
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -15,6 +22,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.refer.android.refer9.R
+import com.refer.android.refer9.activities.LoginActivity
 import com.refer.android.refer9.activities.MainActivity
 import com.refer.android.refer9.utils.KeyboardServices
 import com.refer.android.refer9.utils.MySharedPreferences
@@ -33,10 +41,12 @@ class SignInFragment : Fragment() {
     ): View? {
         rootView = inflater.inflate(R.layout.fragment_sign_in, container, false)
 
-        rootView.log_out_page.visibility=View.GONE
+        setSignInText()
+
+        rootView.sign_out_button.visibility=View.GONE
         if (MySharedPreferences.getPref(requireContext(),"LOGIN_STATUS",false)!!){
             rootView.signIn_page.visibility=View.GONE
-            rootView.log_out_page.visibility=View.VISIBLE
+            rootView.sign_out_button.visibility=View.VISIBLE
         }
 
         rootView.signIn_fragment_id.setOnClickListener{
@@ -103,9 +113,9 @@ class SignInFragment : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("Temp", "signInWithCredential:success")
                     val user = auth.currentUser
-                    MySharedPreferences.setPref(requireContext(),"USER_NAME",user?.displayName)
+                    MySharedPreferences.setPref(requireContext(),"USER_NAME_GMAIL",user?.displayName)
                     Log.d("User","${user?.displayName}")
-                    onSuccessfulLogin()
+                    onSuccessfulLogin("GMAIL")
                 } else {
                     Log.d("Temp", "${task.exception}")
                 }
@@ -121,7 +131,7 @@ class SignInFragment : Fragment() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        onSuccessfulLogin()
+                        onSuccessfulLogin("EMAIL")
                     } else {
                         ToastServices.sToast(requireContext(), "Login Failed")
                     }
@@ -131,10 +141,15 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun onSuccessfulLogin() {
+    private fun onSuccessfulLogin(type: String) {
         rootView.signIn_page.visibility=View.GONE
-        rootView.log_out_page.visibility=View.VISIBLE
+        rootView.sign_out_button.visibility=View.VISIBLE
         MySharedPreferences.setPref(requireContext(), "LOGIN_STATUS", true)
+        when (type){
+            "EMAIL" -> MySharedPreferences.setPref(requireContext(), "LOGIN_TYPE", "EMAIL")
+            "GMAIL" -> MySharedPreferences.setPref(requireContext(), "LOGIN_TYPE", "GMAIL")
+        }
+
         val i = Intent(activity, MainActivity::class.java)
         startActivity(i)
     }
@@ -150,5 +165,22 @@ class SignInFragment : Fragment() {
         MySharedPreferences.setPref(requireContext(), "LOGIN_SKIP", true)
         val i = Intent(activity, MainActivity::class.java)
         startActivity(i)
+    }
+    private fun setSignInText() {
+        val ss = SpannableString("No account yet? Create one")
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+                (activity as LoginActivity).addSignUpFragment()
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = false
+            }
+        }
+        ss.setSpan(clickableSpan, 15, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        rootView.signUp_link_text.text = ss
+        rootView.signUp_link_text.movementMethod = LinkMovementMethod.getInstance()
+        rootView.signUp_link_text.highlightColor= Color.GREEN
     }
 }
