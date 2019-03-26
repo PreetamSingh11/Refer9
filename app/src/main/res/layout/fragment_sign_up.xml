@@ -13,6 +13,7 @@
         tools:context=".fragments.SignUpFragment">
 
     <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signUp_name_box_layout"
             style="@style/TextBox_style"
             android:hint="@string/prompt_name">
 
@@ -24,6 +25,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signUp_email_box_layout"
             style="@style/TextBox_style"
             android:hint="@string/prompt_email">
 
@@ -35,6 +37,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signUp_password_box_layout"
             style="@style/TextBox_style"
             app:passwordToggleEnabled="true"
             android:hint="@string/prompt_password">

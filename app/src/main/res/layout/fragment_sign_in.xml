@@ -83,15 +83,4 @@
 
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:id="@+id/sign_out_button"
-            android:layout_gravity="center"
-            android:text="@string/sign_out_text"
-            android:textAllCaps="false"
-            android:elevation="3dp"
-            android:padding="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
 </LinearLayout>

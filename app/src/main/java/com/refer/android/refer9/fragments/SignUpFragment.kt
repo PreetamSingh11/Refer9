@@ -6,12 +6,16 @@ import android.os.Bundle
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.refer.android.refer9.activities.LoginActivity
+import com.refer.android.refer9.activities.MainActivity
+import com.refer.android.refer9.models.ErrorData
 import com.refer.android.refer9.utils.KeyboardServices
 import com.refer.android.refer9.utils.MySharedPreferences
 import com.refer.android.refer9.utils.ToastServices
@@ -20,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 
 
-class SignUpFragment : Fragment() {
+class SignUpFragment : Fragment(), View.OnFocusChangeListener {
 
     private lateinit var rootView: View
     private lateinit var firebaseAuth: FirebaseAuth
@@ -32,10 +36,13 @@ class SignUpFragment : Fragment() {
     private var textWatcher: TextWatcher = object : TextWatcher {
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         }
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
+
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun afterTextChanged(s: Editable) {
-            if (s.toString() == rootView.signUp_password_box.text.toString()){
-                rootView.signUp_button.isEnabled = true
+            if (s.toString() == rootView.signUp_password_box.text.toString()) {
+                if (isNameValid && isEmailValid && isPasswordValid) {
+                    rootView.signUp_button.isEnabled = true
+                }
             }
         }
     }
@@ -62,43 +69,9 @@ class SignUpFragment : Fragment() {
             register()
         }
 
-        rootView.signUp_name_box.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                val nameValid =
-                    ValidationServices.isNameValidFunc(requireContext(), rootView.signUp_name_box.text.toString())
-                when (nameValid.errStatusCode) {
-                    101 -> rootView.signUp_name_box.error = nameValid.errMsg
-                    102 -> rootView.signUp_name_box.error = nameValid.errMsg
-                    else -> isNameValid = true
-                }
-            }
-        }
-
-        rootView.signUp_email_box.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                val emailValid =
-                    ValidationServices.isEmailValidFunc(requireContext(), rootView.signUp_email_box.text.toString())
-                when (emailValid.errStatusCode) {
-                    101 -> rootView.signUp_email_box.error = emailValid.errMsg
-                    102 -> rootView.signUp_email_box.error = emailValid.errMsg
-                    else -> isEmailValid = true
-                }
-            }
-        }
-
-        rootView.signUp_password_box.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                val passwordValid = ValidationServices.isPasswordValidFunc(
-                    requireContext(),
-                    rootView.signUp_password_box.text.toString()
-                )
-                when (passwordValid.errStatusCode) {
-                    101 -> rootView.signUp_password_box.error = passwordValid.errMsg
-                    102 -> rootView.signUp_password_box.error = passwordValid.errMsg
-                    else -> isPasswordValid = true
-                }
-            }
-        }
+        rootView.signUp_name_box.onFocusChangeListener = this
+        rootView.signUp_email_box.onFocusChangeListener = this
+        rootView.signUp_password_box.onFocusChangeListener = this
 
         return rootView
     }
@@ -131,10 +104,10 @@ class SignUpFragment : Fragment() {
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        ToastServices.lToast(requireContext(), "register call with $name")
-                        onSuccess(name)
+                        Log.d("Register","User name $name")
+                        onSuccess(name,email,password)
                     } else {
-                        ToastServices.lToast(requireContext(), "register call with ${task.exception}")
+                        Log.d("Register","Register Errors ${task.exception}")
                     }
                 }
         } else {
@@ -142,10 +115,73 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun onSuccess(name: String) {
+    private fun onSuccess(name: String,email: String,password: String) {
         MySharedPreferences.setPref(requireContext(), "USER_NAME_EMAIL", name)
-        val i = Intent(requireContext(), LoginActivity::class.java)
+        if (!TextUtils.isEmpty(email)&&!TextUtils.isEmpty(password)){
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        onSuccessfulLogin("EMAIL")
+                    } else {
+                        ToastServices.sToast(requireContext(), "Login Failed")
+                    }
+                }
+        } else{
+            ToastServices.customToastError(requireContext(),"Something went wrong")
+        }
+    }
+
+    private fun onSuccessfulLogin(type: String) {
+        MySharedPreferences.setPref(requireContext(), "LOGIN_STATUS", true)
+        when (type){
+            "EMAIL" -> MySharedPreferences.setPref(requireContext(), "LOGIN_TYPE", "EMAIL")
+            "GMAIL" -> MySharedPreferences.setPref(requireContext(), "LOGIN_TYPE", "GMAIL")
+        }
+        val i = Intent(activity, MainActivity::class.java)
         startActivity(i)
+    }
+
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        if (!hasFocus) {
+            when (v) {
+                rootView.signUp_name_box -> {
+                    val errorData =
+                        ValidationServices.isNameValidFunc(requireContext(), rootView.signUp_name_box.text.toString())
+                    if (setErrors(rootView.signUp_name_box_layout, errorData)) {
+                        isNameValid = true
+                    }
+                }
+                rootView.signUp_email_box -> {
+                    val errorData =
+                        ValidationServices.isEmailValidFunc(requireContext(), rootView.signUp_email_box.text.toString())
+                    if (setErrors(rootView.signUp_email_box_layout, errorData)) {
+                        isEmailValid = true
+                    }
+                }
+                rootView.signUp_password_box -> {
+                    val errorData = ValidationServices.isPasswordValidFunc(
+                        requireContext(),
+                        rootView.signUp_password_box.text.toString()
+                    )
+                    if (setErrors(rootView.signUp_password_box_layout, errorData)) {
+                        isPasswordValid = true
+                    }
+                }
+            }
+
+        }
+    }
+
+    private fun setErrors(textEditBoxLayout: TextInputLayout, errorData: ErrorData): Boolean {
+        when (errorData.errStatusCode) {
+            101 -> textEditBoxLayout.error = errorData.errMsg
+            102 -> textEditBoxLayout.error = errorData.errMsg
+            else -> {
+                textEditBoxLayout.error = null
+                return true
+            }
+        }
+        return false
     }
 
 }

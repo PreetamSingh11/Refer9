@@ -43,18 +43,8 @@ class SignInFragment : Fragment() {
 
         setSignInText()
 
-        rootView.sign_out_button.visibility=View.GONE
-        if (MySharedPreferences.getPref(requireContext(),"LOGIN_STATUS",false)!!){
-            rootView.signIn_page.visibility=View.GONE
-            rootView.sign_out_button.visibility=View.VISIBLE
-        }
-
         rootView.signIn_fragment_id.setOnClickListener{
             KeyboardServices.hide(requireActivity())
-        }
-
-        rootView.sign_out_button.setOnClickListener{
-            signOut()
         }
 
         rootView.signIn_Button.setOnClickListener{
@@ -143,20 +133,12 @@ class SignInFragment : Fragment() {
 
     private fun onSuccessfulLogin(type: String) {
         rootView.signIn_page.visibility=View.GONE
-        rootView.sign_out_button.visibility=View.VISIBLE
         MySharedPreferences.setPref(requireContext(), "LOGIN_STATUS", true)
         when (type){
             "EMAIL" -> MySharedPreferences.setPref(requireContext(), "LOGIN_TYPE", "EMAIL")
             "GMAIL" -> MySharedPreferences.setPref(requireContext(), "LOGIN_TYPE", "GMAIL")
         }
 
-        val i = Intent(activity, MainActivity::class.java)
-        startActivity(i)
-    }
-
-    private fun signOut() {
-        auth.signOut()
-        MySharedPreferences.setPref(requireContext(), "LOGIN_STATUS", false)
         val i = Intent(activity, MainActivity::class.java)
         startActivity(i)
     }

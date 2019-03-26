@@ -11,6 +11,7 @@ import com.refer.android.refer9.R
 import com.refer.android.refer9.utils.MySharedPreferences
 import com.refer.android.refer9.utils.ToastServices
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.navigation_header.view.*
 
 
@@ -23,10 +24,6 @@ class MainActivity : AppCompatActivity() {
 
         getLoginStatus()
         setUserProfile()
-
-        navigationView.getHeaderView(0).userProfile.setOnClickListener {
-            login()
-        }
 
         menu_icon.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
@@ -83,6 +80,9 @@ class MainActivity : AppCompatActivity() {
             navigationView.getHeaderView(0).userName.text = resources.getString(R.string.anonymous)
             navigationView.menu.findItem(R.id.signOut).isEnabled = false
             navigationView.menu.findItem(R.id.refer_details).isEnabled = false
+            navigationView.getHeaderView(0).userProfile.setOnClickListener {
+                login()
+            }
         }
     }
 
