@@ -109,4 +109,8 @@ class MainActivity : AppCompatActivity() {
     @Suppress("UNUSED_PARAMETER")
     fun openGrooming(view: View) {
     }
+
+    override fun onBackPressed() {
+        moveTaskToBack(true)
+    }
 }

@@ -5,12 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
 import android.text.TextUtils
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -23,10 +18,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.refer.android.refer9.R
-import com.refer.android.refer9.activities.LoginActivity
 import com.refer.android.refer9.activities.MainActivity
 import com.refer.android.refer9.utils.KeyboardServices
 import com.refer.android.refer9.utils.MySharedPreferences
+import com.refer.android.refer9.utils.SpanStringServices
 import com.refer.android.refer9.utils.ToastServices
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import kotlinx.android.synthetic.main.fragment_sign_in.view.*
@@ -43,11 +38,9 @@ class SignInFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(com.refer.android.refer9.R.layout.fragment_sign_in, container, false)
+        rootView = inflater.inflate(R.layout.fragment_sign_in, container, false)
 
         setSignInText()
-
-
 
         rootView.signIn_fragment_id.setOnClickListener{
             KeyboardServices.hide(requireActivity())
@@ -130,7 +123,7 @@ class SignInFragment : Fragment() {
                     if (task.isSuccessful) {
                         Handler().postDelayed({
                             onSuccessfulLogin("EMAIL")
-                        },2000)
+                        },1000)
                     } else {
                         ToastServices.sToast(requireContext(), "Login Failed")
                         rootView.signIn_Button.revertAnimation()
@@ -164,20 +157,7 @@ class SignInFragment : Fragment() {
         startActivity(i)
     }
     private fun setSignInText() {
-        val ss = SpannableString("No account yet? Create one")
-        val clickableSpan = object : ClickableSpan() {
-            override fun onClick(textView: View) {
-                (activity as LoginActivity).addSignUpFragment()
-            }
-
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.isUnderlineText = false
-            }
-        }
-        ss.setSpan(clickableSpan, 15, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        rootView.signUp_link_text.text = ss
-        rootView.signUp_link_text.movementMethod = LinkMovementMethod.getInstance()
-        rootView.signUp_link_text.highlightColor= Color.GREEN
+        val spanString= "No account yet? Create one"
+        SpanStringServices.createSpannableString(requireActivity(), rootView.signUp_link_text,spanString, 15, 26,0)
     }
 }

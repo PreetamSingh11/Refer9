@@ -4,9 +4,9 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
-import android.text.*
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +15,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.refer.android.refer9.R
-import com.refer.android.refer9.activities.LoginActivity
 import com.refer.android.refer9.activities.MainActivity
 import com.refer.android.refer9.models.ErrorData
-import com.refer.android.refer9.utils.KeyboardServices
-import com.refer.android.refer9.utils.MySharedPreferences
-import com.refer.android.refer9.utils.ToastServices
-import com.refer.android.refer9.utils.ValidationServices
+import com.refer.android.refer9.utils.*
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 
@@ -78,22 +74,9 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
         return rootView
     }
 
-    private fun setSignInText() {
-        val ss = SpannableString("Already have an account. Login here")
-        val clickableSpan = object : ClickableSpan() {
-            override fun onClick(textView: View) {
-                (activity as LoginActivity).addSignInFragment()
-            }
-
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.isUnderlineText = false
-            }
-        }
-        ss.setSpan(clickableSpan, 25, 35, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        rootView.login_link_text.text = ss
-        rootView.login_link_text.movementMethod = LinkMovementMethod.getInstance()
-        rootView.login_link_text.highlightColor = Color.GREEN
+    private fun setSignInText(){
+        val spanString= "Already have an account. Login here"
+        SpanStringServices.createSpannableString(requireActivity(), rootView.login_link_text,spanString, 25, 35,1)
     }
 
     private fun register() {
