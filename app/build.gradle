@@ -42,7 +42,7 @@ dependencies {
 
     implementation 'com.valdesekamdem.library:md-toast:0.9.0'
 
-    implementation 'com.jpardogo.googleprogressbar:library:1.2.0'
+    implementation 'br.com.simplepass:loading-button-android:2.1.0'  //circular process
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'

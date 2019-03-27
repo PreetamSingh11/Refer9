@@ -16,7 +16,7 @@
     <LinearLayout
             android:id="@+id/signIn_page"
             android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -43,10 +43,16 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-                android:text="@string/action_sign_in"
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                style="@style/LoginButtons"
                 android:id="@+id/signIn_Button"
-                style="@style/Button_style"/>
+                android:text="@string/action_sign_in"
+                android:background="@drawable/button_shape"
+                android:elevation="6dp"
+                app:spinning_bar_width="4dp"
+                app:spinning_bar_color="#FFF"
+                app:spinning_bar_padding="1dp"
+                app:initialCornerAngle="30dp"/>
 
         <View
                 android:layout_width="match_parent"

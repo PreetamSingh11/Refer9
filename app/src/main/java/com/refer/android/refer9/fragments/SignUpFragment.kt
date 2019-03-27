@@ -1,6 +1,7 @@
 package com.refer.android.refer9.fragments
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import android.text.*
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.refer.android.refer9.R
 import com.refer.android.refer9.activities.LoginActivity
 import com.refer.android.refer9.activities.MainActivity
 import com.refer.android.refer9.models.ErrorData
@@ -96,6 +98,7 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
 
     private fun register() {
         KeyboardServices.hide(requireActivity())
+        rootView.signUp_button.startAnimation()
         val name = signUp_name_box.text.toString()
         val email = signUp_email_box.text.toString().trim { it <= ' ' }
         val password = signUp_password_box.text.toString().trim { it <= ' ' }
@@ -108,9 +111,15 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
                         onSuccess(name,email,password)
                     } else {
                         Log.d("Register","Register Errors ${task.exception}")
+                        rootView.signUp_button.revertAnimation()
+                    }
+                    if (task.isComplete){
+                        val icon = BitmapFactory.decodeResource(requireContext().resources, R.drawable.ic_check)
+                        rootView.signUp_button.doneLoadingAnimation(Color.GREEN,icon)
                     }
                 }
         } else {
+            rootView.signUp_button.revertAnimation()
             ToastServices.lToast(requireContext(), "Fill Values")
         }
     }

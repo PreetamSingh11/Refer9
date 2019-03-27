@@ -61,10 +61,16 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-            android:text="@string/register"
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            style="@style/LoginButtons"
             android:id="@+id/signUp_button"
-            style="@style/Button_style"/>
+            android:text="@string/register"
+            android:background="@drawable/button_shape"
+            android:elevation="6dp"
+            app:spinning_bar_width="4dp"
+            app:spinning_bar_color="#FFF"
+            app:spinning_bar_padding="2dp"
+            app:initialCornerAngle="30dp"/>
 
     <TextView
             android:id="@+id/login_link_text"

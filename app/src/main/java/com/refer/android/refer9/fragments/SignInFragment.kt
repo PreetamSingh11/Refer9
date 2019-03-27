@@ -1,8 +1,10 @@
 package com.refer.android.refer9.fragments
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
@@ -13,7 +15,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -30,18 +31,23 @@ import com.refer.android.refer9.utils.ToastServices
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 
+
 class SignInFragment : Fragment() {
 
     private lateinit var rootView: View
     private lateinit var auth: FirebaseAuth
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.fragment_sign_in, container, false)
+        rootView = inflater.inflate(com.refer.android.refer9.R.layout.fragment_sign_in, container, false)
 
         setSignInText()
+
+
 
         rootView.signIn_fragment_id.setOnClickListener{
             KeyboardServices.hide(requireActivity())
@@ -65,7 +71,7 @@ class SignInFragment : Fragment() {
 
     private fun signInWithGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(getString(com.refer.android.refer9.R.string.default_web_client_id))
             .requestEmail()
             .build()
         val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
@@ -117,16 +123,25 @@ class SignInFragment : Fragment() {
         val email = signIn_email_box.text.toString().trim { it <= ' ' }
         val password = signIn_password_box.text.toString().trim { it <= ' ' }
 
+        rootView.signIn_Button.startAnimation()
         if (!TextUtils.isEmpty(email)&&!TextUtils.isEmpty(password)){
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        onSuccessfulLogin("EMAIL")
+                        Handler().postDelayed({
+                            onSuccessfulLogin("EMAIL")
+                        },2000)
                     } else {
                         ToastServices.sToast(requireContext(), "Login Failed")
+                        rootView.signIn_Button.revertAnimation()
+                    }
+                    if (task.isComplete){
+                        val icon = BitmapFactory.decodeResource(requireContext().resources, R.drawable.ic_check)
+                        rootView.signIn_Button.doneLoadingAnimation(Color.GREEN,icon)
                     }
                 }
         } else{
+            rootView.signIn_Button.revertAnimation()
             ToastServices.lToast(requireContext(),"Fill Values")
         }
     }
