@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.refer.android.refer9.fragments.SignInFragment
 import com.refer.android.refer9.fragments.SignUpFragment
 import kotlinx.android.synthetic.main.activity_login.*

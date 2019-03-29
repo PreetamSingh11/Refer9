@@ -7,17 +7,19 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.refer.android.refer9.R
 import com.refer.android.refer9.activities.MainActivity
 import com.refer.android.refer9.models.ErrorData
 import com.refer.android.refer9.utils.*
+import com.refer.android.refer9.viewModels.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 
@@ -26,6 +28,8 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
 
     private lateinit var rootView: View
     private lateinit var firebaseAuth: FirebaseAuth
+
+    private lateinit var viewModel: LoginViewModel
 
     private var isNameValid: Boolean = false
     private var isEmailValid: Boolean = false
@@ -53,6 +57,10 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
         rootView = inflater.inflate(com.refer.android.refer9.R.layout.fragment_sign_up, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
 
+        viewModel = activity?.run {
+            ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
+
         setSignInText()
 
         rootView.signUp_confirm_password_box.addTextChangedListener(textWatcher)
@@ -74,9 +82,9 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
         return rootView
     }
 
-    private fun setSignInText(){
-        val spanString= "Already have an account. Login here"
-        SpanStringServices.createSpannableString(requireActivity(), rootView.login_link_text,spanString, 25, 35,1)
+    private fun setSignInText() {
+        val spanString = "Already have an account. Login here"
+        SpanStringServices.createSpannableString(requireActivity(), rootView.login_link_text, spanString, 25, 35, 1)
     }
 
     private fun register() {
@@ -87,50 +95,30 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
         val password = signUp_password_box.text.toString().trim { it <= ' ' }
 
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-            firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        Log.d("Register","User name $name")
-                        onSuccess(name,email,password)
-                    } else {
-                        Log.d("Register","Register Errors ${task.exception}")
-                        rootView.signUp_button.revertAnimation()
-                    }
-                    if (task.isComplete){
-                        val icon = BitmapFactory.decodeResource(requireContext().resources, R.drawable.ic_check)
-                        rootView.signUp_button.doneLoadingAnimation(Color.GREEN,icon)
-                    }
+            viewModel.signUp(name, email, password).observe(this, Observer { signUpResponse ->
+                signUpResponse?.let {
+                    onSuccessRegister(email, password)
+                    val icon = BitmapFactory.decodeResource(requireContext().resources, R.drawable.ic_check)
+                    rootView.signUp_button.doneLoadingAnimation(Color.GREEN, icon)
                 }
+            })
         } else {
             rootView.signUp_button.revertAnimation()
             ToastServices.lToast(requireContext(), "Fill Values")
         }
     }
 
-    private fun onSuccess(name: String,email: String,password: String) {
-        MySharedPreferences.setPref(requireContext(), "USER_NAME_EMAIL", name)
-        if (!TextUtils.isEmpty(email)&&!TextUtils.isEmpty(password)){
-            firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        onSuccessfulLogin("EMAIL")
-                    } else {
-                        ToastServices.sToast(requireContext(), "Login Failed")
-                    }
-                }
-        } else{
-            ToastServices.customToastError(requireContext(),"Something went wrong")
-        }
-    }
-
-    private fun onSuccessfulLogin(type: String) {
-        MySharedPreferences.setPref(requireContext(), "LOGIN_STATUS", true)
-        when (type){
-            "EMAIL" -> MySharedPreferences.setPref(requireContext(), "LOGIN_TYPE", "EMAIL")
-            "GMAIL" -> MySharedPreferences.setPref(requireContext(), "LOGIN_TYPE", "GMAIL")
-        }
-        val i = Intent(activity, MainActivity::class.java)
-        startActivity(i)
+    private fun onSuccessRegister(email:String, password:String){
+        viewModel.signInUser(email, password).observe(this, Observer { logInResponse ->
+            logInResponse?.let {
+                MySharedPreferences.setPref(requireContext(),"LOGIN_STATUS",true)
+                /*
+                * save user name and token
+                * */
+                val i = Intent(activity, MainActivity::class.java)
+                startActivity(i)
+            }
+        })
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {

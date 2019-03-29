@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.refer.android.refer9">
+          package="com.refer.android.refer9"
+          android:targetSandboxVersion="1"
+          tools:ignore="UnusedAttribute">
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
@@ -15,7 +17,8 @@
             android:roundIcon="@drawable/ic_logo_large"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            tools:ignore="GoogleAppIndexingWarning">
+            android:usesCleartextTraffic="true"
+            tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
 
         <activity
                 android:name=".activities.ConfirmActivity"

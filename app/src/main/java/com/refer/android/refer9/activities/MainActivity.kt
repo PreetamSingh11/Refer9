@@ -57,8 +57,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun getLoginStatus() {
-        val loginStatus = MySharedPreferences.getPref(this,"LOGIN_STATUS", false)
-        val loginSkip = MySharedPreferences.getPref(this,"LOGIN_SKIP", false)
+        val loginStatus = MySharedPreferences.getPref(this, "LOGIN_STATUS", false)
+        val loginSkip = MySharedPreferences.getPref(this, "LOGIN_SKIP", false)
         if (!loginStatus!! && !loginSkip!!) {
             val i = Intent(this, LoginActivity::class.java)
             startActivity(i)
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUserProfile() {
         if (MySharedPreferences.getPref(this, "LOGIN_STATUS", false)!!) {
-            if ("EMAIL" == MySharedPreferences.getPref(this,"LOGIN_TYPE","EMAIL")){
+            if ("EMAIL" == MySharedPreferences.getPref(this, "LOGIN_TYPE", "EMAIL")) {
                 val userNameValue = MySharedPreferences.getPref(this, "USER_NAME_EMAIL", "Anonymous!")
                 navigationView.getHeaderView(0).userName.text = userNameValue
             } else {
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             }
             navigationView.menu.findItem(R.id.signOut).isEnabled = true
             navigationView.menu.findItem(R.id.refer_details).isEnabled = true
-        } else{
+        } else {
             navigationView.getHeaderView(0).userName.text = resources.getString(R.string.anonymous)
             navigationView.menu.findItem(R.id.signOut).isEnabled = false
             navigationView.menu.findItem(R.id.refer_details).isEnabled = false
