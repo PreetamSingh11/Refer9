@@ -108,7 +108,7 @@ class SignInFragment : Fragment() {
                 Log.d("Temp", "signInWithCredential:success")
                 val user = auth.currentUser
                 MySharedPreferences.setPref(requireContext(), "GOOGLE_USER_NAME", user?.displayName)
-                MySharedPreferences.setPref(requireContext(),"LOGIN_TYPE","GOOGLE")
+                MySharedPreferences.setPref(requireContext(),"LOGIN_TYPE_GMAIL",true)
                 Log.d("User", "${user?.displayName}")
                 onSuccessfulLogin()
             } else {

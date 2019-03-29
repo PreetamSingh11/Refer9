@@ -2,6 +2,7 @@ package com.refer.android.refer9.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.refer.android.refer9.utils.ToastServices
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.navigation_header.view.*
+import com.refer.android.refer9.models.UserProfile
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +24,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.refer.android.refer9.R.layout.activity_main)
 
-        getLoginStatus()
+        val intent = intent
+        when {
+            intent.getBooleanExtra("email",false) -> {
+                val userValues = intent.getParcelableExtra<UserProfile>("userProfileResponse")
+                Log.d("Shared values in Main","Main Activity name : ${userValues.name}")
+                Log.d("Shared values in Main","Main Activity Email : ${userValues.email}")
+            }
+            intent.getBooleanExtra("gmail",false) -> {
+                Log.d("Shared values in Main","Google name ${intent.getStringExtra("GoogleUserName")}")
+                ToastServices.customToastSuccess(this,intent.getStringExtra("GoogleUserName"))
+            }
+            else -> ToastServices.customToastError(this,"Third Intent")
+        }
+
+        //getLoginStatus()
         setUserProfile()
 
         menu_icon.setOnClickListener {
@@ -55,15 +71,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun getLoginStatus() {
-        val loginStatus = MySharedPreferences.getPref(this, "LOGIN_STATUS", false)
-        val loginSkip = MySharedPreferences.getPref(this, "LOGIN_SKIP", false)
-        if (!loginStatus!! && !loginSkip!!) {
-            val i = Intent(this, LoginActivity::class.java)
-            startActivity(i)
-        }
-    }
+//
+//    private fun getLoginStatus() {
+//        val loginStatus = MySharedPreferences.getPref(this, "LOGIN_STATUS", false)
+//        val loginSkip = MySharedPreferences.getPref(this, "LOGIN_SKIP", false)
+//        if (!loginStatus!! && !loginSkip!!) {
+//            val i = Intent(this, LoginActivity::class.java)
+//            startActivity(i)
+//        }
+//    }
 
     private fun setUserProfile() {
         if (MySharedPreferences.getPref(this, "LOGIN_STATUS", false)!!) {
@@ -71,15 +87,15 @@ class MainActivity : AppCompatActivity() {
                 val userNameValue = MySharedPreferences.getPref(this, "USER_NAME_EMAIL", "Anonymous!")
                 navigationView.getHeaderView(0).userName.text = userNameValue
             } else {
-                val userNameValue = MySharedPreferences.getPref(this, "USER_NAME_GMAIL", "Anonymous!")
+                val userNameValue = MySharedPreferences.getPref(this, "GOOGLE_USER_NAME", "Anonymous!")
                 navigationView.getHeaderView(0).userName.text = userNameValue
             }
-            navigationView.menu.findItem(R.id.signOut).isEnabled = true
-            navigationView.menu.findItem(R.id.refer_details).isEnabled = true
+            navigationView.menu.findItem(com.refer.android.refer9.R.id.signOut).isEnabled = true
+            navigationView.menu.findItem(com.refer.android.refer9.R.id.refer_details).isEnabled = true
         } else {
-            navigationView.getHeaderView(0).userName.text = resources.getString(R.string.anonymous)
-            navigationView.menu.findItem(R.id.signOut).isEnabled = false
-            navigationView.menu.findItem(R.id.refer_details).isEnabled = false
+            navigationView.getHeaderView(0).userName.text = resources.getString(com.refer.android.refer9.R.string.anonymous)
+            navigationView.menu.findItem(com.refer.android.refer9.R.id.signOut).isEnabled = false
+            navigationView.menu.findItem(com.refer.android.refer9.R.id.refer_details).isEnabled = false
             navigationView.getHeaderView(0).userProfile.setOnClickListener {
                 login()
             }
