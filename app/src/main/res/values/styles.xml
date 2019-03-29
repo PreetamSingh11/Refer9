@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:autofilledHighlight" tools:targetApi="o">@drawable/autofill_background</item>
     </style>
 
     <style name="TextInputLayout_style" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -134,4 +135,16 @@
         <item name="android:padding">6dp</item>
     </style>
 
+    <!--
+        Splash Screen
+    -->
+
+    <style name="splashScreenTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
+    </style>
 </resources>

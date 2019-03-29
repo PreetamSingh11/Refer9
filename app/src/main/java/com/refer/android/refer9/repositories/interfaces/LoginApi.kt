@@ -1,4 +1,4 @@
-package com.refer.android.refer9.networks
+package com.refer.android.refer9.repositories.interfaces
 
 import com.refer.android.refer9.models.LogInResponseBody
 import com.refer.android.refer9.models.LogInRequestBody
@@ -11,8 +11,8 @@ import retrofit2.http.POST
 interface LoginApi {
 
     @POST("login")
-     fun loginUser(@Body logInRequestBody: LogInRequestBody) : Call<LogInResponseBody>
+    fun loginUser(@Body logInRequestBody: LogInRequestBody): Call<LogInResponseBody>
 
     @POST("signup")
-    fun signUp(@Body signUpRequestBody: SignUpRequestBody) : Call<SignUpResponseBody>
+    fun signUp(@Body signUpRequestBody: SignUpRequestBody): Call<SignUpResponseBody>
 }

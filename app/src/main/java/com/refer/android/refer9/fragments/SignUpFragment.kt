@@ -109,12 +109,10 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
     }
 
     private fun onSuccessRegister(email:String, password:String){
-        viewModel.signInUser(email, password).observe(this, Observer { logInResponse ->
+        viewModel.signIn(email, password).observe(this, Observer { logInResponse ->
             logInResponse?.let {
                 MySharedPreferences.setPref(requireContext(),"LOGIN_STATUS",true)
-                /*
-                * save user name and token
-                * */
+                MySharedPreferences.setPref(requireContext(), "USER_TOKEN", it.accessToken)
                 val i = Intent(activity, MainActivity::class.java)
                 startActivity(i)
             }

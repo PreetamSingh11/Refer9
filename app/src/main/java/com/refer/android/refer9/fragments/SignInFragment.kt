@@ -23,7 +23,6 @@ import com.refer.android.refer9.utils.MySharedPreferences
 import com.refer.android.refer9.utils.SpanStringServices
 import com.refer.android.refer9.utils.ToastServices
 import com.refer.android.refer9.viewModels.LoginViewModel
-import kotlinx.android.synthetic.main.fragment_sign_in.*
 import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 
 
@@ -96,7 +95,6 @@ class SignInFragment : Fragment() {
                 // Google Sign In failed, update UI appropriately
                 ToastServices.sToast(requireContext(), "Google Sign In failed ")
                 Log.d("TaskLog", "${e.statusCode}")
-                // ...
             }
         }
     }
@@ -109,7 +107,8 @@ class SignInFragment : Fragment() {
                 // Sign in success, update UI with the signed-in user's information
                 Log.d("Temp", "signInWithCredential:success")
                 val user = auth.currentUser
-                MySharedPreferences.setPref(requireContext(), "USER_NAME", user?.displayName)
+                MySharedPreferences.setPref(requireContext(), "GOOGLE_USER_NAME", user?.displayName)
+                MySharedPreferences.setPref(requireContext(),"LOGIN_TYPE","GOOGLE")
                 Log.d("User", "${user?.displayName}")
                 onSuccessfulLogin()
             } else {
@@ -121,17 +120,15 @@ class SignInFragment : Fragment() {
     private fun login() {
         KeyboardServices.hide(requireActivity())
         rootView.signIn_Button.startAnimation()
-        val email = signIn_email_box.text.toString().trim { it <= ' ' }
-        val password = signIn_password_box.text.toString().trim { it <= ' ' }
+        val email = rootView.signIn_email_box.text.toString().trim { it <= ' ' }
+        val password = rootView.signIn_password_box.text.toString().trim { it <= ' ' }
 
-        rootView.signIn_Button.startAnimation()
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-            viewModel.signInUser(email, password).observe(this, Observer { logInResponse ->
+            viewModel.signIn(email, password).observe(this, Observer { logInResponse ->
                 logInResponse?.let {
                     onSuccessfulLogin()
-                    ToastServices.customToastInfo(requireContext(), it.accessToken)
+                    MySharedPreferences.setPref(requireContext(), "USER_TOKEN", it.accessToken)
                 }
-
             })
         } else {
             rootView.signIn_Button.revertAnimation()
@@ -141,9 +138,6 @@ class SignInFragment : Fragment() {
 
     private fun onSuccessfulLogin() {
         MySharedPreferences.setPref(requireContext(), "LOGIN_STATUS", true)
-        /*
-        *  save user name and token
-        * */
         val i = Intent(activity, MainActivity::class.java)
         startActivity(i)
     }
