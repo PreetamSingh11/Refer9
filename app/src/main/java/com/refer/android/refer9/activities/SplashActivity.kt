@@ -31,17 +31,10 @@ class SplashActivity : AppCompatActivity() {
         val loginTypeEmail=MySharedPreferences.getPref(this,"LOGIN_TYPE_EMAIL",false)
         val loginTypeGmail=MySharedPreferences.getPref(this,"LOGIN_TYPE_GMAIL",false)
 
-//        Log.d("Shared values in splash","loginStatus : $loginStatus")
-//        Log.d("Shared values in splash","loginSkip : $loginSkip")
-//        Log.d("Shared values in splash","token : $token")
-//        Log.d("Shared values in splash","loginEmail : $loginTypeEmail")
-//        Log.d("Shared values in splash","loginGmail : $loginTypeGmail")
-
         if (loginStatus!! && loginTypeEmail!!){
-            Log.d("Shared values in splash","calling openHomeWithEmail_upperFunc")
             viewModel.userProfile(token!!).observe(this, Observer {userProfileResponse->
                 userProfileResponse?.let {
-                    MySharedPreferences.setPref(this,"USER_NAME_EMAIL","Anonymous!")
+                    MySharedPreferences.setPref(this,"USER_NAME_EMAIL",it.name)
                     openHomeWithEmail()
                 }
             })
@@ -51,7 +44,6 @@ class SplashActivity : AppCompatActivity() {
             openLoginActivity()
         } else{
             ToastServices.customToastError(this,"Something went miserably wrong ")
-            Log.d("SplashScreen","Something went miserably wrong")
         }
     }
 

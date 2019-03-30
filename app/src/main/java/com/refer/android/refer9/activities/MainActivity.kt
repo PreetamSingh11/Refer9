@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
                 "LOGIN_TYPE_EMAIL",
                 false
             )!! -> {
-                Log.d("Main","SignUp")
                 val token = MySharedPreferences.getPref(this, "USER_TOKEN", "NOT available")
                 viewModel.userProfile(token!!).observe(this, Observer { userProfileResponse ->
                     userProfileResponse?.let {
@@ -82,10 +81,10 @@ class MainActivity : AppCompatActivity() {
     private fun setUserProfile() {
         if (MySharedPreferences.getPref(this, "LOGIN_STATUS", false)!!) {
             if (MySharedPreferences.getPref(this, "LOGIN_TYPE_EMAIL", false)!!) {
-                val userNameValue = MySharedPreferences.getPref(this, "USER_NAME_EMAIL", "Anonymous!")
+                val userNameValue = MySharedPreferences.getPref(this, "USER_NAME_EMAIL", "Anonymous!!")
                 navigationView.getHeaderView(0).userName.text = userNameValue
             } else {
-                val userNameValue = MySharedPreferences.getPref(this, "GOOGLE_USER_NAME", "Anonymous!")
+                val userNameValue = MySharedPreferences.getPref(this, "GOOGLE_USER_NAME", "Anonymous!!!")
                 navigationView.getHeaderView(0).userName.text = userNameValue
             }
             navigationView.menu.findItem(com.refer.android.refer9.R.id.signOut).isEnabled = true

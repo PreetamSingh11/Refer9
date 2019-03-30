@@ -127,6 +127,7 @@ class SignInFragment : Fragment() {
             viewModel.signIn(email, password).observe(this, Observer { logInResponse ->
                 logInResponse?.let {
                     MySharedPreferences.setPref(requireContext(), "USER_TOKEN", it.accessToken)
+                    MySharedPreferences.setPref(requireContext(),"LOGIN_TYPE_EMAIL",true)
                     onSuccessfulLogin()
                 }
             })
