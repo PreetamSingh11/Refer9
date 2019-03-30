@@ -4,42 +4,50 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseAuth
-import com.refer.android.refer9.R
 import com.refer.android.refer9.utils.MySharedPreferences
 import com.refer.android.refer9.utils.ToastServices
+import com.refer.android.refer9.viewModels.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.navigation_header.view.*
-import com.refer.android.refer9.models.UserProfile
 
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(com.refer.android.refer9.R.layout.activity_main)
 
+        val viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+
         val intent = intent
         when {
-            intent.getBooleanExtra("email",false) -> {
-                val userValues = intent.getParcelableExtra<UserProfile>("userProfileResponse")
-                Log.d("Shared values in Main","Main Activity name : ${userValues.name}")
-                Log.d("Shared values in Main","Main Activity Email : ${userValues.email}")
+            intent.getBooleanExtra("email", false) -> {
+                setUserProfile()
             }
-            intent.getBooleanExtra("gmail",false) -> {
-                Log.d("Shared values in Main","Google name ${intent.getStringExtra("GoogleUserName")}")
-                ToastServices.customToastSuccess(this,intent.getStringExtra("GoogleUserName"))
+            intent.getBooleanExtra("gmail", false) -> {
+                setUserProfile()
             }
-            else -> ToastServices.customToastError(this,"Third Intent")
+            intent.getBooleanExtra("login", false) && MySharedPreferences.getPref(
+                this,
+                "LOGIN_TYPE_EMAIL",
+                false
+            )!! -> {
+                Log.d("Main","SignUp")
+                val token = MySharedPreferences.getPref(this, "USER_TOKEN", "NOT available")
+                viewModel.userProfile(token!!).observe(this, Observer { userProfileResponse ->
+                    userProfileResponse?.let {
+                        MySharedPreferences.setPref(this, "USER_NAME_EMAIL", it.name)
+                        setUserProfile()
+                    }
+                })
+            }
+            else -> setUserProfile()
         }
-
-        //getLoginStatus()
-        setUserProfile()
 
         menu_icon.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
@@ -71,19 +79,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//
-//    private fun getLoginStatus() {
-//        val loginStatus = MySharedPreferences.getPref(this, "LOGIN_STATUS", false)
-//        val loginSkip = MySharedPreferences.getPref(this, "LOGIN_SKIP", false)
-//        if (!loginStatus!! && !loginSkip!!) {
-//            val i = Intent(this, LoginActivity::class.java)
-//            startActivity(i)
-//        }
-//    }
-
     private fun setUserProfile() {
         if (MySharedPreferences.getPref(this, "LOGIN_STATUS", false)!!) {
-            if ("EMAIL" == MySharedPreferences.getPref(this, "LOGIN_TYPE", "EMAIL")) {
+            if (MySharedPreferences.getPref(this, "LOGIN_TYPE_EMAIL", false)!!) {
                 val userNameValue = MySharedPreferences.getPref(this, "USER_NAME_EMAIL", "Anonymous!")
                 navigationView.getHeaderView(0).userName.text = userNameValue
             } else {

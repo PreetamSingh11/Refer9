@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 
-class ProfileReository {
+class ProfileRepository {
 
     private lateinit var retrofit: Retrofit
     val profileResponse = MutableLiveData<UserProfile>()
@@ -34,7 +34,6 @@ class ProfileReository {
     }).build()
 
     private fun getClient(): Retrofit {
-        Log.d("ViewModel","getClientCalled")
         retrofit = Retrofit.Builder()
             .client(client)
             .baseUrl(baseURL)
@@ -46,7 +45,7 @@ class ProfileReository {
     fun getProfile(userToken:String):LiveData<UserProfile>{
         token = userToken
         val client = getClient().create(ProfileApi::class.java)
-        val call = client.getUserProfile(token)
+        val call = client.getUserProfile("Bearer $token")
 
         call.enqueue(object : Callback<UserProfile> {
             override fun onFailure(call: Call<UserProfile>, t: Throwable) {
@@ -55,10 +54,9 @@ class ProfileReository {
             }
 
             override fun onResponse(call: Call<UserProfile>, responseBody: retrofit2.Response<UserProfile>) {
+                Log.d("Shared values in splash","isSuccessful : ${responseBody.isSuccessful}")
+                Log.d("Shared values in splash","code : ${responseBody.code()}")
                 profileResponse.value = responseBody.body()
-                Log.d("ViewModel-getProfile()","email : ${responseBody.body()?.email}")
-                Log.d("ViewModel-getProfile()","id : ${responseBody.body()?.id}")
-                Log.d("ViewModel-getProfile()","name : ${responseBody.body()?.name}")
             }
         })
         return profileResponse

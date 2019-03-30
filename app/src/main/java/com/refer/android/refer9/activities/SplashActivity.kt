@@ -31,32 +31,27 @@ class SplashActivity : AppCompatActivity() {
         val loginTypeEmail=MySharedPreferences.getPref(this,"LOGIN_TYPE_EMAIL",false)
         val loginTypeGmail=MySharedPreferences.getPref(this,"LOGIN_TYPE_GMAIL",false)
 
-        Log.d("Shared values in splash","loginStatus : $loginStatus")
-        Log.d("Shared values in splash","loginSkip : $loginSkip")
-        Log.d("Shared values in splash","token : $token")
-        Log.d("Shared values in splash","loginEmail : $loginTypeEmail")
-        Log.d("Shared values in splash","loginGmail : $loginTypeGmail")
+//        Log.d("Shared values in splash","loginStatus : $loginStatus")
+//        Log.d("Shared values in splash","loginSkip : $loginSkip")
+//        Log.d("Shared values in splash","token : $token")
+//        Log.d("Shared values in splash","loginEmail : $loginTypeEmail")
+//        Log.d("Shared values in splash","loginGmail : $loginTypeGmail")
 
         if (loginStatus!! && loginTypeEmail!!){
+            Log.d("Shared values in splash","calling openHomeWithEmail_upperFunc")
             viewModel.userProfile(token!!).observe(this, Observer {userProfileResponse->
                 userProfileResponse?.let {
-                    delayFunc()
-                    openHomeWithEmail(it)
+                    MySharedPreferences.setPref(this,"USER_NAME_EMAIL","Anonymous!")
+                    openHomeWithEmail()
                 }
             })
         } else if (loginTypeGmail!!){
-            Log.d("Shared values in splash","calling openHomeWithGmail $loginTypeGmail")
-            val googleUserName=MySharedPreferences.getPref(this,"GOOGLE_USER_NAME","Hi Anonymous!")
-            delayFunc()
-            openHomeWithGoogle(googleUserName)
+            openHomeWithGoogle()
         } else if (!loginStatus && !loginSkip!!){
-            Log.d("Shared values in splash","calling login")
-            delayFunc()
             openLoginActivity()
         } else{
             ToastServices.customToastError(this,"Something went miserably wrong ")
             Log.d("SplashScreen","Something went miserably wrong")
-            delayFunc()
         }
     }
 
@@ -72,25 +67,23 @@ class SplashActivity : AppCompatActivity() {
         }, 3000)
     }
 
-    private fun openHomeWithEmail(userProfile: UserProfile) {
-        Log.d("Shared values in splash","calling openHomeWithEmail")
+    private fun openHomeWithEmail() {
         val intent = Intent(applicationContext, MainActivity::class.java)
         intent.putExtra("email",true)
-        intent.putExtra("userProfileResponse",userProfile)
         startActivity(intent)
         finish()
     }
 
-    private fun openHomeWithGoogle(googleUserName: String?) {
-        Log.d("Shared values in splash","calling openHomeWithGmail")
+    private fun openHomeWithGoogle() {
+        delayFunc()
         val intent = Intent(applicationContext, MainActivity::class.java)
         intent.putExtra("gmail",true)
-        intent.putExtra("GoogleUserName",googleUserName)
         startActivity(intent)
         finish()
     }
 
     private fun openLoginActivity() {
+        delayFunc()
         val intent = Intent(applicationContext, LoginActivity::class.java)
         startActivity(intent)
         finish()

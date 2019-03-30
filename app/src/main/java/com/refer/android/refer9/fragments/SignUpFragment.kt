@@ -113,7 +113,9 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
             logInResponse?.let {
                 MySharedPreferences.setPref(requireContext(),"LOGIN_STATUS",true)
                 MySharedPreferences.setPref(requireContext(), "USER_TOKEN", it.accessToken)
+                MySharedPreferences.setPref(requireContext(),"LOGIN_TYPE_EMAIL",true)
                 val i = Intent(activity, MainActivity::class.java)
+                i.putExtra("login",true)
                 startActivity(i)
             }
         })

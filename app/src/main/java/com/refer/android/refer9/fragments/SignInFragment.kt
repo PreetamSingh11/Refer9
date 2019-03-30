@@ -126,8 +126,8 @@ class SignInFragment : Fragment() {
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
             viewModel.signIn(email, password).observe(this, Observer { logInResponse ->
                 logInResponse?.let {
-                    onSuccessfulLogin()
                     MySharedPreferences.setPref(requireContext(), "USER_TOKEN", it.accessToken)
+                    onSuccessfulLogin()
                 }
             })
         } else {
@@ -139,6 +139,7 @@ class SignInFragment : Fragment() {
     private fun onSuccessfulLogin() {
         MySharedPreferences.setPref(requireContext(), "LOGIN_STATUS", true)
         val i = Intent(activity, MainActivity::class.java)
+        i.putExtra("login",true)
         startActivity(i)
     }
 
