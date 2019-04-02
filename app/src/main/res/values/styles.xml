@@ -147,4 +147,5 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
     </style>
+
 </resources>

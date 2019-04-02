@@ -1,17 +1,15 @@
 package com.refer.android.refer9.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.Window
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.refer.android.refer9.R
-import com.refer.android.refer9.models.UserProfile
 import com.refer.android.refer9.utils.MySharedPreferences
-import com.refer.android.refer9.utils.ToastServices
 import com.refer.android.refer9.viewModels.ProfileViewModel
 
 class SplashActivity : AppCompatActivity() {
@@ -31,6 +29,12 @@ class SplashActivity : AppCompatActivity() {
         val loginTypeEmail=MySharedPreferences.getPref(this,"LOGIN_TYPE_EMAIL",false)
         val loginTypeGmail=MySharedPreferences.getPref(this,"LOGIN_TYPE_GMAIL",false)
 
+        Log.d("Splash","loginStatus : $loginStatus")
+        Log.d("Splash","loginSkip : $loginSkip")
+        Log.d("Splash","token : $token")
+        Log.d("Splash","loginEmail : $loginTypeEmail")
+        Log.d("Splash","loginGmail : $loginTypeGmail")
+
         if (loginStatus!! && loginTypeEmail!!){
             viewModel.userProfile(token!!).observe(this, Observer {userProfileResponse->
                 userProfileResponse?.let {
@@ -43,7 +47,8 @@ class SplashActivity : AppCompatActivity() {
         } else if (!loginStatus && !loginSkip!!){
             openLoginActivity()
         } else{
-            ToastServices.customToastError(this,"Something went miserably wrong ")
+            delayFunc()
+            openLoginActivity()
         }
     }
 

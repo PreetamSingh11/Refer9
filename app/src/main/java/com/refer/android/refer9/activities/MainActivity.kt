@@ -2,7 +2,6 @@ package com.refer.android.refer9.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -71,6 +70,10 @@ class MainActivity : AppCompatActivity() {
                 com.refer.android.refer9.R.id.signOut -> {
                     FirebaseAuth.getInstance().signOut()
                     MySharedPreferences.setPref(this, "LOGIN_STATUS", false)
+                    MySharedPreferences.setPref(this,"LOGIN_TYPE_EMAIL",false)
+                    MySharedPreferences.setPref(this,"LOGIN_TYPE_GMAIL",false)
+                    MySharedPreferences.setPref(this,"LOGIN_SKIP",false)
+                    MySharedPreferences.setPref(this,"USER_TOKEN"," ")
                     setUserProfile()
                 }
             }

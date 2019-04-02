@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.refer.android.refer9.R
+import com.refer.android.refer9.activities.LoginActivity
 import com.refer.android.refer9.activities.MainActivity
 import com.refer.android.refer9.models.ErrorData
 import com.refer.android.refer9.utils.*
@@ -30,6 +31,8 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
     private lateinit var firebaseAuth: FirebaseAuth
 
     private lateinit var viewModel: LoginViewModel
+
+    private var isSpacialSignUpChecked = false
 
     private var isNameValid: Boolean = false
     private var isEmailValid: Boolean = false
@@ -65,14 +68,28 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
 
         rootView.signUp_confirm_password_box.addTextChangedListener(textWatcher)
 
-        rootView.signUp_button.isEnabled = false
+        rootView.signUp_button.isEnabled = true
 
         rootView.signUp_fragment_id.setOnClickListener {
             KeyboardServices.hide(requireActivity())
         }
 
+        rootView.checkbox_sign_up.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                rootView.signUp_button.text="Next"
+                isSpacialSignUpChecked=true
+            } else{
+                rootView.signUp_button.text="Register"
+                isSpacialSignUpChecked=false
+            }
+        }
+
         rootView.signUp_button.setOnClickListener {
-            register()
+            if (isSpacialSignUpChecked){
+                (activity as LoginActivity).addServicesListFragment()
+            } else{
+                register()
+            }
         }
 
         rootView.signUp_name_box.onFocusChangeListener = this
