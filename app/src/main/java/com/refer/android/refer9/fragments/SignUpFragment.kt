@@ -32,8 +32,6 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
 
     private lateinit var viewModel: LoginViewModel
 
-    private var isSpacialSignUpChecked = false
-
     private var isNameValid: Boolean = false
     private var isEmailValid: Boolean = false
     private var isPasswordValid: Boolean = false
@@ -68,28 +66,14 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
 
         rootView.signUp_confirm_password_box.addTextChangedListener(textWatcher)
 
-        rootView.signUp_button.isEnabled = true
+        rootView.signUp_button.isEnabled = false
 
         rootView.signUp_fragment_id.setOnClickListener {
             KeyboardServices.hide(requireActivity())
         }
 
-        rootView.checkbox_sign_up.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
-                rootView.signUp_button.text="Next"
-                isSpacialSignUpChecked=true
-            } else{
-                rootView.signUp_button.text="Register"
-                isSpacialSignUpChecked=false
-            }
-        }
-
         rootView.signUp_button.setOnClickListener {
-            if (isSpacialSignUpChecked){
-                (activity as LoginActivity).addServicesListFragment()
-            } else{
                 register()
-            }
         }
 
         rootView.signUp_name_box.onFocusChangeListener = this

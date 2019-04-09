@@ -44,7 +44,9 @@ class SplashActivity : AppCompatActivity() {
             })
         } else if (loginTypeGmail!!){
             openHomeWithGoogle()
-        } else if (!loginStatus && !loginSkip!!){
+        } else if (loginSkip!!){
+            openHome()
+        } else if (!loginStatus && !loginSkip){
             openLoginActivity()
         } else{
             delayFunc()
@@ -78,6 +80,14 @@ class SplashActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    private fun openHome() {
+        delayFunc()
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 
     private fun openLoginActivity() {
         delayFunc()

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/_16sdp"
+        tools:context=".fragments.DoctorRegisterFragment">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/hello_blank_fragment"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
+
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_name"
+                    style="@style/AutoCompleteTextView_style"
+                    android:hint="@string/hint_doc_name"
+                    android:inputType="textPersonName|textCapWords"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
+
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_register_no"
+                    style="@style/AutoCompleteTextView_style"
+                    android:hint="@string/hint_doc_register_no"
+                    android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
+
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_type"
+                    style="@style/AutoCompleteTextView_style"
+                    android:spinnerMode="dropdown"
+                    android:overlapAnchor="false"
+                    android:hint="@string/hint_doc_type" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
+
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_sub_type"
+                    style="@style/AutoCompleteTextView_style"
+                    android:spinnerMode="dropdown"
+                    android:overlapAnchor="false"
+                    android:hint="@string/hint_doc_sub_type" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
+
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_year"
+                    style="@style/AutoCompleteTextView_style"
+                    android:hint="@string/hint_doc_passing_year"
+                    android:maxLength="4"
+                    android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
+
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_college"
+                    style="@style/AutoCompleteTextView_style"
+                    android:hint="@string/hint_doc_college"
+                    android:inputType="textCapWords"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
+
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_reg_date"
+                    style="@style/AutoCompleteTextView_style"
+                    android:hint="@string/hint_doc_register_date"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

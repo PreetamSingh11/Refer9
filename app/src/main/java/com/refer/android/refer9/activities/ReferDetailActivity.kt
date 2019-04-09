@@ -70,6 +70,7 @@ class ReferDetailActivity : AppCompatActivity() {
         }
 
         states_list.onItemClickListener = AdapterView.OnItemClickListener{parent,_,position,_ ->
+            cities_names.text = null
             val selectedItem = parent.getItemAtPosition(position).toString()
             val sortedCities = ArrayListServices.sortAsc(getCitiesList(selectedItem))
             populateList(cities_names,sortedCities)
@@ -111,9 +112,9 @@ class ReferDetailActivity : AppCompatActivity() {
     }
 
     private fun populateList(textView: AutoCompleteTextView,list: ArrayList<String>){
-        val loanAdapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,list)
+        val listAdapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,list)
         textView.threshold=0
-        textView.setAdapter(loanAdapter)
+        textView.setAdapter(listAdapter)
         textView.setOnFocusChangeListener{_,hasFocus ->
             if (hasFocus){
                 textView.showDropDown()

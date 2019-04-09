@@ -93,7 +93,22 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_out_text">Sign Out</string>
     <string name="back_button">back button</string>
-    <string name="spacial_sign_up">Spacial Sign Up</string>
+
+    <!--
+        Health activity
+    -->
     <string name="health_profile_list_title">You are a</string>
+
+    <!--
+        Register activity
+    -->
+
+    <string name="hint_doc_name">Name</string>
+    <string name="hint_doc_register_no">Registration No</string>
+    <string name="hint_doc_type">Doctor Type</string>
+    <string name="hint_doc_sub_type">Doctor Sub Type</string>
+    <string name="hint_doc_passing_year">Passing Year</string>
+    <string name="hint_doc_college">College</string>
+    <string name="hint_doc_register_date">Registration Date</string>
 
 </resources>

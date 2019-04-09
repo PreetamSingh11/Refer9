@@ -61,14 +61,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <CheckBox
-            android:id="@+id/checkbox_sign_up"
-            android:text="@string/spacial_sign_up"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:padding="@dimen/_4sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
     <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             style="@style/LoginButtons"
             android:id="@+id/signUp_button"

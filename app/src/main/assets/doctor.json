@@ -1,0 +1,45 @@
+{
+  "Department": "Doctor",
+  "MainMenuItems": [
+    {
+      "doctor_type": "MBBS/MDS",
+      "doctor_sub_type1": [
+        "All",
+        "Physician",
+        "General Surgeon",
+        "Gynaecologist",
+        "Neurologist",
+        "Nutritionist",
+        "Obstetrician",
+        "Orthopaedist",
+        "Pathologist",
+        "Radiologist",
+        "Junior Surgeons",
+        "Anaesthetist",
+        "Bacteriologist",
+        "Cardiologist",
+        "Medical Reviewer",
+        "Chiropodist",
+        "Dermatologist",
+        "E.N.T Specialist",
+        "Enterologist",
+        "Gastroenterologist"
+      ]
+    },
+    {
+      "doctor_type": "Dental",
+      "doctor_sub_type1": [
+        "All",
+        "Dentist",
+        "Dental Surgeon",
+        "Endodontic",
+        "Oral and Maxillofacial Pathologist",
+        "Oral Surgery",
+        "Orthodontics",
+        "Pedodontics",
+        "Periodontics",
+        "Prosthodontics"
+      ]
+    }
+  ]
+}
