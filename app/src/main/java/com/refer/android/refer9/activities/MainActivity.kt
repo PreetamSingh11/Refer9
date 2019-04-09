@@ -116,6 +116,8 @@ class MainActivity : AppCompatActivity() {
 
     @Suppress("UNUSED_PARAMETER")
     fun openHealth(view: View) {
+        val intent = Intent(this,HealthActivity::class.java)
+        startActivity(intent)
     }
 
     @Suppress("UNUSED_PARAMETER")

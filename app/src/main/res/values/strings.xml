@@ -94,5 +94,6 @@
     <string name="sign_out_text">Sign Out</string>
     <string name="back_button">back button</string>
     <string name="spacial_sign_up">Spacial Sign Up</string>
+    <string name="health_profile_list_title">You are a</string>
 
 </resources>

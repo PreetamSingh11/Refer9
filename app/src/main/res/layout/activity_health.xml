@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:padding="@dimen/_16sdp"
         android:orientation="vertical"
-        tools:context=".fragments.ServicesListFragment">
+        tools:context=".activities.HealthActivity">
 
     <TextView
             android:layout_width="match_parent"
@@ -15,15 +15,12 @@
             android:textSize="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginBottom="@dimen/_16sdp"
-            android:text="@string/hello_blank_fragment"/>
+            android:text="@string/health_profile_list_title"/>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_services_list"
-                android:scrollbars="none"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_health_profiles_list"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>
-
-

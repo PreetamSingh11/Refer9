@@ -82,7 +82,7 @@ class ServicesListFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         rv_services_list.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter=ServicesListAdapter(servicesList)
+            adapter=ServicesListAdapter(requireContext(),servicesList)
         }
 
         rv_services_list.addOnItemTouchListener(
