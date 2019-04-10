@@ -3,7 +3,6 @@ package com.refer.android.refer9.fragments
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,8 +32,6 @@ class DoctorRegisterFragment : androidx.fragment.app.Fragment() {
 
         jsonString = JsonServices.getJsonFromLocalFile(requireContext(), "doctor.json")
         getDocTypesList()
-        Log.d("Test","Doctor Type List $listDocType")
-        Log.d("Test","Doctor Type List $listDocSubType")
         populateList(rootView.edit_text_doc_type,listDocType)
 
         rootView.edit_text_doc_type.onItemClickListener = AdapterView.OnItemClickListener{parent,_,position,_->

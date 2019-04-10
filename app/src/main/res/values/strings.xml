@@ -110,5 +110,7 @@
     <string name="hint_doc_passing_year">Passing Year</string>
     <string name="hint_doc_college">College</string>
     <string name="hint_doc_register_date">Registration Date</string>
+    <string name="doc_registration_heading">Doctor Registration</string>
+    <string name="lab_register_heading">Lab Registration</string>
 
 </resources>
