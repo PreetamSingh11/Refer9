@@ -29,6 +29,7 @@ class HealthActivity : AppCompatActivity() {
     private fun openRegister(msg:String){
         ToastServices.customToastSuccess(this,msg)
         val intent = Intent(this,RegisterActivity::class.java)
+        intent.putExtra("Fragment",msg)
         startActivity(intent)
     }
 }

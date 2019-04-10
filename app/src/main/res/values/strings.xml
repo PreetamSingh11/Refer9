@@ -111,6 +111,15 @@
     <string name="hint_doc_college">College</string>
     <string name="hint_doc_register_date">Registration Date</string>
     <string name="doc_registration_heading">Doctor Registration</string>
+
+    <!--
+        lab registration
+    -->
     <string name="lab_register_heading">Lab Registration</string>
+    <string name="hint_lab_address1">Address 1</string>
+    <string name="hint_lab_address2">Address 2</string>
+    <string name="hint_lab_city">City</string>
+    <string name="hint_lab_pin_code">Pin Code</string>
+    <string name="hint_lab_phone_no">Phone No</string>
 
 </resources>

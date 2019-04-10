@@ -1,6 +1,5 @@
 package com.refer.android.refer9.fragments
 
-
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +13,6 @@ import kotlinx.android.synthetic.main.fragment_doctor_register.view.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
-
 
 class DoctorRegisterFragment : androidx.fragment.app.Fragment() {
 
