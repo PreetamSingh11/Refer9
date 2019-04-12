@@ -23,6 +23,8 @@ class LabRegisterFragment : Fragment(), OnSelectDateListener {
         ToastServices.customToastSuccess(requireContext(), "$year")
         date = "$day/$month/$year"
         rootView.edit_text_lab_reg_date.setText(date)
+        rootView.edit_text_lab_reg_date.isFocusable = false
+        rootView.edit_text_lab_reg_date.isFocusableInTouchMode=true
     }
 
     override fun onCreateView(

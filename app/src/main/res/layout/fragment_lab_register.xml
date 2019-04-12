@@ -85,7 +85,7 @@
 
     <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             style="@style/LoginButtons"
-            android:id="@+id/btn_doc_register"
+            android:id="@+id/btn_lab_register"
             android:text="@string/register"
             android:background="@drawable/button_shape"
             android:elevation="6dp"

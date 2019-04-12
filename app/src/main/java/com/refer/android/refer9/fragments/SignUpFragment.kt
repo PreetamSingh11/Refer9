@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.refer.android.refer9.R
-import com.refer.android.refer9.activities.LoginActivity
 import com.refer.android.refer9.activities.MainActivity
 import com.refer.android.refer9.models.ErrorData
 import com.refer.android.refer9.utils.*

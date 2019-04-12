@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.userProfile(token!!).observe(this, Observer { userProfileResponse ->
                     userProfileResponse?.let {
                         MySharedPreferences.setPref(this, "USER_NAME_EMAIL", it.name)
+                        MySharedPreferences.setPref(this, "USER_ID", it.id)
                         setUserProfile()
                     }
                 })
@@ -70,10 +71,10 @@ class MainActivity : AppCompatActivity() {
                 com.refer.android.refer9.R.id.signOut -> {
                     FirebaseAuth.getInstance().signOut()
                     MySharedPreferences.setPref(this, "LOGIN_STATUS", false)
-                    MySharedPreferences.setPref(this,"LOGIN_TYPE_EMAIL",false)
-                    MySharedPreferences.setPref(this,"LOGIN_TYPE_GMAIL",false)
-                    MySharedPreferences.setPref(this,"LOGIN_SKIP",false)
-                    MySharedPreferences.setPref(this,"USER_TOKEN"," ")
+                    MySharedPreferences.setPref(this, "LOGIN_TYPE_EMAIL", false)
+                    MySharedPreferences.setPref(this, "LOGIN_TYPE_GMAIL", false)
+                    MySharedPreferences.setPref(this, "LOGIN_SKIP", false)
+                    MySharedPreferences.setPref(this, "USER_TOKEN", " ")
                     setUserProfile()
                 }
             }
@@ -93,7 +94,8 @@ class MainActivity : AppCompatActivity() {
             navigationView.menu.findItem(com.refer.android.refer9.R.id.signOut).isEnabled = true
             navigationView.menu.findItem(com.refer.android.refer9.R.id.refer_details).isEnabled = true
         } else {
-            navigationView.getHeaderView(0).userName.text = resources.getString(com.refer.android.refer9.R.string.anonymous)
+            navigationView.getHeaderView(0).userName.text =
+                resources.getString(com.refer.android.refer9.R.string.anonymous)
             navigationView.menu.findItem(com.refer.android.refer9.R.id.signOut).isEnabled = false
             navigationView.menu.findItem(com.refer.android.refer9.R.id.refer_details).isEnabled = false
             navigationView.getHeaderView(0).userProfile.setOnClickListener {
@@ -116,7 +118,7 @@ class MainActivity : AppCompatActivity() {
 
     @Suppress("UNUSED_PARAMETER")
     fun openHealth(view: View) {
-        val intent = Intent(this,HealthActivity::class.java)
+        val intent = Intent(this, HealthActivity::class.java)
         startActivity(intent)
     }
 

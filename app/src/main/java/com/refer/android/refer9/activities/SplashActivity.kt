@@ -23,38 +23,39 @@ class SplashActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
 
-        val loginStatus=MySharedPreferences.getPref(this,"LOGIN_STATUS",false)
-        val loginSkip=MySharedPreferences.getPref(this,"LOGIN_SKIP",false)
-        val token=MySharedPreferences.getPref(this,"USER_TOKEN","NOT available")
-        val loginTypeEmail=MySharedPreferences.getPref(this,"LOGIN_TYPE_EMAIL",false)
-        val loginTypeGmail=MySharedPreferences.getPref(this,"LOGIN_TYPE_GMAIL",false)
+        val loginStatus = MySharedPreferences.getPref(this, "LOGIN_STATUS", false)
+        val loginSkip = MySharedPreferences.getPref(this, "LOGIN_SKIP", false)
+        val token = MySharedPreferences.getPref(this, "USER_TOKEN", "NOT available")
+        val loginTypeEmail = MySharedPreferences.getPref(this, "LOGIN_TYPE_EMAIL", false)
+        val loginTypeGmail = MySharedPreferences.getPref(this, "LOGIN_TYPE_GMAIL", false)
 
-        Log.d("Splash","loginStatus : $loginStatus")
-        Log.d("Splash","loginSkip : $loginSkip")
-        Log.d("Splash","token : $token")
-        Log.d("Splash","loginEmail : $loginTypeEmail")
-        Log.d("Splash","loginGmail : $loginTypeGmail")
+        Log.d("Splash", "loginStatus : $loginStatus")
+        Log.d("Splash", "loginSkip : $loginSkip")
+        Log.d("Splash", "token : $token")
+        Log.d("Splash", "loginEmail : $loginTypeEmail")
+        Log.d("Splash", "loginGmail : $loginTypeGmail")
 
-        if (loginStatus!! && loginTypeEmail!!){
-            viewModel.userProfile(token!!).observe(this, Observer {userProfileResponse->
+        if (loginStatus!! && loginTypeEmail!!) {
+            viewModel.userProfile(token!!).observe(this, Observer { userProfileResponse ->
                 userProfileResponse?.let {
-                    MySharedPreferences.setPref(this,"USER_NAME_EMAIL",it.name)
+                    MySharedPreferences.setPref(this, "USER_NAME_EMAIL", it.name)
+                    MySharedPreferences.setPref(this, "USER_ID", it.id)
                     openHomeWithEmail()
                 }
             })
-        } else if (loginTypeGmail!!){
+        } else if (loginTypeGmail!!) {
             openHomeWithGoogle()
-        } else if (loginSkip!!){
+        } else if (loginSkip!!) {
             openHome()
-        } else if (!loginStatus && !loginSkip){
+        } else if (!loginStatus && !loginSkip) {
             openLoginActivity()
-        } else{
+        } else {
             delayFunc()
             openLoginActivity()
         }
     }
 
-    private fun delayFunc(){
+    private fun delayFunc() {
         mWaitHandler.postDelayed({
             try {
 //                val intent = Intent(applicationContext, MainActivity::class.java)
@@ -68,7 +69,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun openHomeWithEmail() {
         val intent = Intent(applicationContext, MainActivity::class.java)
-        intent.putExtra("email",true)
+        intent.putExtra("email", true)
         startActivity(intent)
         finish()
     }
@@ -76,7 +77,7 @@ class SplashActivity : AppCompatActivity() {
     private fun openHomeWithGoogle() {
         delayFunc()
         val intent = Intent(applicationContext, MainActivity::class.java)
-        intent.putExtra("gmail",true)
+        intent.putExtra("gmail", true)
         startActivity(intent)
         finish()
     }
