@@ -121,5 +121,16 @@
     <string name="hint_lab_city">City</string>
     <string name="hint_lab_pin_code">Pin Code</string>
     <string name="hint_lab_phone_no">Phone No</string>
+    <string name="title_activity_temp">TempActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>

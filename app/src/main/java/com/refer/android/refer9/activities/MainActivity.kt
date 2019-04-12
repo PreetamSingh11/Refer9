@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseAuth
+import com.refer.android.refer9.R
 import com.refer.android.refer9.utils.MySharedPreferences
 import com.refer.android.refer9.utils.ToastServices
 import com.refer.android.refer9.viewModels.ProfileViewModel
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.refer.android.refer9.R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
         val viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
 
@@ -56,19 +57,19 @@ class MainActivity : AppCompatActivity() {
             menuItem.isChecked = true
             drawerLayout.closeDrawers()
             when (menuItem.itemId) {
-                com.refer.android.refer9.R.id.refer_details -> {
+                R.id.refer_details -> {
                     ToastServices.sToast(this, "Refer Details")
                 }
-                com.refer.android.refer9.R.id.about_us -> {
+                R.id.about_us -> {
                     ToastServices.sToast(this, "About us")
                 }
-                com.refer.android.refer9.R.id.t_and_c -> {
+                R.id.t_and_c -> {
                     ToastServices.sToast(this, "Terms an Conditions")
                 }
-                com.refer.android.refer9.R.id.help -> {
+                R.id.help -> {
                     ToastServices.sToast(this, "Help")
                 }
-                com.refer.android.refer9.R.id.signOut -> {
+                R.id.signOut -> {
                     FirebaseAuth.getInstance().signOut()
                     MySharedPreferences.setPref(this, "LOGIN_STATUS", false)
                     MySharedPreferences.setPref(this, "LOGIN_TYPE_EMAIL", false)
@@ -91,13 +92,13 @@ class MainActivity : AppCompatActivity() {
                 val userNameValue = MySharedPreferences.getPref(this, "GOOGLE_USER_NAME", "Anonymous!!!")
                 navigationView.getHeaderView(0).userName.text = userNameValue
             }
-            navigationView.menu.findItem(com.refer.android.refer9.R.id.signOut).isEnabled = true
-            navigationView.menu.findItem(com.refer.android.refer9.R.id.refer_details).isEnabled = true
+            navigationView.menu.findItem(R.id.signOut).isEnabled = true
+            navigationView.menu.findItem(R.id.refer_details).isEnabled = true
         } else {
             navigationView.getHeaderView(0).userName.text =
-                resources.getString(com.refer.android.refer9.R.string.anonymous)
-            navigationView.menu.findItem(com.refer.android.refer9.R.id.signOut).isEnabled = false
-            navigationView.menu.findItem(com.refer.android.refer9.R.id.refer_details).isEnabled = false
+                resources.getString(R.string.anonymous)
+            navigationView.menu.findItem(R.id.signOut).isEnabled = false
+            navigationView.menu.findItem(R.id.refer_details).isEnabled = false
             navigationView.getHeaderView(0).userProfile.setOnClickListener {
                 login()
             }

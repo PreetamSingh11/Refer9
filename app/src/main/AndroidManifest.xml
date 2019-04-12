@@ -19,10 +19,14 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name=".activities.RegisterActivity"
+        <activity
+                android:name=".activities.RegisterActivity"
+                android:parentActivityName=".activities.HealthActivity"
                 android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activities.HealthActivity"
+        <activity
+                android:name=".activities.HealthActivity"
+                android:parentActivityName=".activities.MainActivity"
                 android:screenOrientation="portrait">
         </activity>
         <activity
@@ -37,19 +41,24 @@
         </activity>
         <activity
                 android:name=".activities.ConfirmActivity"
+                android:parentActivityName=".activities.ReferDetailActivity"
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".activities.ReferDetailActivity"
+                android:parentActivityName=".activities.FinanceActivity"
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".activities.FinanceActivity"
+                android:parentActivityName=".activities.MainActivity"
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".activities.LoginActivity"
                 android:label="@string/title_activity_login"
+                android:parentActivityName=".activities.MainActivity"
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".activities.MainActivity"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
                 android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->

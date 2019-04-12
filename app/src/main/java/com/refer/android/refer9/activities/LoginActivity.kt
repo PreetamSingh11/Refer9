@@ -1,12 +1,10 @@
 package com.refer.android.refer9.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.refer.android.refer9.fragments.SignInFragment
 import com.refer.android.refer9.fragments.SignUpFragment
-import kotlinx.android.synthetic.main.activity_login.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -17,12 +15,10 @@ class LoginActivity : AppCompatActivity() {
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
-        addSignInFragment()
+        val actionBar = supportActionBar
+        actionBar?.title = "Log In"
 
-        back_button_login.setOnClickListener{
-            val intent = Intent(this,MainActivity::class.java)
-            startActivity(intent)
-        }
+        addSignInFragment()
     }
 
     fun addSignInFragment() {

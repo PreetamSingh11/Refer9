@@ -46,7 +46,7 @@ class DoctorRegisterFragment : androidx.fragment.app.Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(com.refer.android.refer9.R.layout.fragment_doctor_register, container, false)
+        rootView = inflater.inflate(R.layout.fragment_doctor_register, container, false)
 
         jsonString = JsonServices.getJsonFromLocalFile(requireContext(), "doctor.json")
         getDocTypesList()
