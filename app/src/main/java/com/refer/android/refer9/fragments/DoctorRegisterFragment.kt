@@ -21,10 +21,8 @@ import com.refer.android.refer9.utils.MySharedPreferences
 import com.refer.android.refer9.utils.ToastServices
 import com.refer.android.refer9.viewModels.HealthRegisterModel
 import kotlinx.android.synthetic.main.fragment_doctor_register.view.*
-import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 import org.json.JSONException
 import org.json.JSONObject
-
 import java.util.*
 
 class DoctorRegisterFragment : androidx.fragment.app.Fragment() {
