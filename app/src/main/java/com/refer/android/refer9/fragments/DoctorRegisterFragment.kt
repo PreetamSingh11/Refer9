@@ -48,9 +48,16 @@ class DoctorRegisterFragment : androidx.fragment.app.Fragment() {
     ): View? {
         rootView = inflater.inflate(R.layout.fragment_doctor_register, container, false)
 
+        viewModel.getFragmentTitle().observe(this, Observer { title ->
+            rootView.title_fragment_doctor.text = title
+        })
+
         jsonString = JsonServices.getJsonFromLocalFile(requireContext(), "doctor.json")
         getDocTypesList()
         populateList(rootView.edit_text_doc_type, listDocType)
+
+        rootView.edit_text_doc_reg_date.isFocusable = false
+        rootView.edit_text_doc_reg_date.isFocusableInTouchMode = true
 
         rootView.edit_text_doc_type.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
             rootView.edit_text_doc_sub_type.text = null
@@ -159,18 +166,19 @@ class DoctorRegisterFragment : androidx.fragment.app.Fragment() {
                 userID
             )
 
-            viewModel.docRegisterModel(doctorRegistrationRequestBody).observe(this, Observer {docRegisterResponseCode->
-                docRegisterResponseCode?.let {
-                    if (it == 201){
-                        val icon = BitmapFactory.decodeResource(requireContext().resources, R.drawable.ic_check)
-                        rootView.btn_doc_register.doneLoadingAnimation(Color.GREEN, icon)
-                        ToastServices.customToastSuccess(requireContext(),"Doctor Registration Successful")
-                    } else {
-                        rootView.btn_doc_register.revertAnimation()
-                        ToastServices.customToastError(requireContext(),"Something Went wrong")
+            viewModel.docRegisterModel(doctorRegistrationRequestBody)
+                .observe(this, Observer { docRegisterResponseCode ->
+                    docRegisterResponseCode?.let {
+                        if (it == 201) {
+                            val icon = BitmapFactory.decodeResource(requireContext().resources, R.drawable.ic_check)
+                            rootView.btn_doc_register.doneLoadingAnimation(Color.GREEN, icon)
+                            ToastServices.customToastSuccess(requireContext(), "Doctor Registration Successful")
+                        } else {
+                            rootView.btn_doc_register.revertAnimation()
+                            ToastServices.customToastError(requireContext(), "Something Went wrong")
+                        }
                     }
-                }
-            })
+                })
 
         }
 

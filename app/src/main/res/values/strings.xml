@@ -5,6 +5,11 @@
     <string name="profileDesc">User Profile</string>
     <string name="title_activity_login">Sign in</string>
 
+
+    <!--Activity Labels-->
+    <string name="label_Finance">Finance</string>
+    <string name="label_health">Health</string>
+
     <!-- Strings related to login -->
     <string name="prompt_name">Name</string>
     <string name="prompt_email">Email</string>

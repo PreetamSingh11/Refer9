@@ -10,13 +10,14 @@
         tools:context=".fragments.LabRegisterFragment">
 
     <TextView
+            android:id="@+id/title_fragment_lab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:textStyle="bold"
             android:gravity="center"
-            android:text="@string/lab_register_heading"/>
+            tools:text="@string/lab_register_heading"/>
 
     <com.google.android.material.textfield.TextInputLayout
             style="@style/TextInputLayout_style">
