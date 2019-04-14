@@ -50,12 +50,15 @@ class LabRegisterFragment : Fragment(), OnSelectDateListener {
         rootView = inflater.inflate(R.layout.fragment_lab_register, container, false)
 
         viewModel.getFragmentTitle().observe(this, Observer { title ->
+            if (title == "Medical Store Registration") {
+                rootView.service_list_layout.visibility = View.GONE
+            }
             rootView.title_fragment_lab.text = title
         })
 
         rootView.edit_text_lab_services.isFocusable = false
         rootView.edit_text_lab_services.isFocusableInTouchMode = true
-        rootView.edit_text_lab_services.inputType=InputType.TYPE_NULL
+        rootView.edit_text_lab_services.inputType = InputType.TYPE_NULL
         rootView.edit_text_lab_services.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 servicesList = ""

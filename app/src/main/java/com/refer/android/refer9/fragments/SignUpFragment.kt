@@ -18,10 +18,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.refer.android.refer9.R
 import com.refer.android.refer9.activities.MainActivity
 import com.refer.android.refer9.models.ErrorData
+import com.refer.android.refer9.models.MessageEvent
 import com.refer.android.refer9.utils.*
 import com.refer.android.refer9.viewModels.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class SignUpFragment : Fragment(), View.OnFocusChangeListener {
@@ -34,6 +38,23 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
     private var isNameValid: Boolean = false
     private var isEmailValid: Boolean = false
     private var isPasswordValid: Boolean = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Suppress("UNUSED")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: MessageEvent) {
+        ToastServices.customToastError(requireContext(),event.message)
+        rootView.signUp_button.revertAnimation()
+    }
 
     private var textWatcher: TextWatcher = object : TextWatcher {
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -54,7 +75,7 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(com.refer.android.refer9.R.layout.fragment_sign_up, container, false)
+        rootView = inflater.inflate(R.layout.fragment_sign_up, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
 
         viewModel = activity?.run {

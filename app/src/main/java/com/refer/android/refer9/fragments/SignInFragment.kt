@@ -18,12 +18,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.refer.android.refer9.R
 import com.refer.android.refer9.activities.MainActivity
+import com.refer.android.refer9.models.MessageEvent
 import com.refer.android.refer9.utils.KeyboardServices
 import com.refer.android.refer9.utils.MySharedPreferences
 import com.refer.android.refer9.utils.SpanStringServices
 import com.refer.android.refer9.utils.ToastServices
 import com.refer.android.refer9.viewModels.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_sign_in.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class SignInFragment : Fragment() {
@@ -32,6 +36,23 @@ class SignInFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
 
     private lateinit var viewModel: LoginViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Suppress("UNUSED")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: MessageEvent) {
+        ToastServices.customToastError(requireContext(),event.message)
+        rootView.signIn_Button.revertAnimation()
+    }
 
 
     override fun onCreateView(
@@ -70,7 +91,7 @@ class SignInFragment : Fragment() {
 
     private fun signInWithGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(com.refer.android.refer9.R.string.default_web_client_id))
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
@@ -108,7 +129,7 @@ class SignInFragment : Fragment() {
                 Log.d("Temp", "signInWithCredential:success")
                 val user = auth.currentUser
                 MySharedPreferences.setPref(requireContext(), "GOOGLE_USER_NAME", user?.displayName)
-                MySharedPreferences.setPref(requireContext(),"LOGIN_TYPE_GMAIL",true)
+                MySharedPreferences.setPref(requireContext(), "LOGIN_TYPE_GMAIL", true)
                 Log.d("User", "${user?.displayName}")
                 onSuccessfulLogin()
             } else {
@@ -127,7 +148,7 @@ class SignInFragment : Fragment() {
             viewModel.signIn(email, password).observe(this, Observer { logInResponse ->
                 logInResponse?.let {
                     MySharedPreferences.setPref(requireContext(), "USER_TOKEN", it.accessToken)
-                    MySharedPreferences.setPref(requireContext(),"LOGIN_TYPE_EMAIL",true)
+                    MySharedPreferences.setPref(requireContext(), "LOGIN_TYPE_EMAIL", true)
                     onSuccessfulLogin()
                 }
             })
@@ -140,7 +161,7 @@ class SignInFragment : Fragment() {
     private fun onSuccessfulLogin() {
         MySharedPreferences.setPref(requireContext(), "LOGIN_STATUS", true)
         val i = Intent(activity, MainActivity::class.java)
-        i.putExtra("login",true)
+        i.putExtra("login", true)
         startActivity(i)
     }
 

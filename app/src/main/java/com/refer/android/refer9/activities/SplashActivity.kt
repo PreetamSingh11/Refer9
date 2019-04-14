@@ -8,9 +8,14 @@ import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.refer.android.refer9.R
+import com.refer.android.refer9.models.MessageEvent
 import com.refer.android.refer9.utils.MySharedPreferences
+import com.refer.android.refer9.utils.ToastServices
 import com.refer.android.refer9.viewModels.ProfileViewModel
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+
 
 class SplashActivity : AppCompatActivity() {
 
@@ -18,7 +23,8 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setTheme(R.style.splashScreenTheme)
+        setTheme(com.refer.android.refer9.R.style.splashScreenTheme)
+        setContentView(com.refer.android.refer9.R.layout.activity_splash)
         super.onCreate(savedInstanceState)
 
         val viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
@@ -100,5 +106,21 @@ class SplashActivity : AppCompatActivity() {
     override fun onDestroy() {
         mWaitHandler.removeCallbacksAndMessages(null)
         super.onDestroy()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Suppress("UNUSED")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: MessageEvent) {
+        ToastServices.customToastError(this,event.message)
     }
 }

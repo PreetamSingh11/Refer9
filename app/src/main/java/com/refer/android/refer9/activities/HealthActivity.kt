@@ -1,12 +1,11 @@
 package com.refer.android.refer9.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.refer.android.refer9.R
 import com.refer.android.refer9.adapters.ServicesListAdapter
-import com.refer.android.refer9.utils.ToastServices
 import kotlinx.android.synthetic.main.activity_health.*
 
 class HealthActivity : AppCompatActivity() {
@@ -27,7 +26,6 @@ class HealthActivity : AppCompatActivity() {
         }
     }
     private fun openRegister(msg:String){
-        ToastServices.customToastSuccess(this,msg)
         val intent = Intent(this,RegisterActivity::class.java)
         intent.putExtra("Fragment",msg)
         startActivity(intent)
