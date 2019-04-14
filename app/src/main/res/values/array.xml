@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="services_list">
+        <item>CT</item>
+        <item>ECG</item>
+        <item>IGT</item>
+        <item>MRI</item>
+        <item>Pathology</item>
+        <item>Ultra Sound</item>
+        <item>X-Ray</item>
+    </string-array>
+</resources>

@@ -23,6 +23,17 @@
             style="@style/TextInputLayout_style">
 
         <AutoCompleteTextView
+                android:id="@+id/edit_text_lab_name"
+                style="@style/AutoCompleteTextView_style"
+                android:hint="@string/hint_lab_name"
+                android:inputType="text|textCapWords"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout_style">
+
+        <AutoCompleteTextView
                 android:id="@+id/edit_text_lab_address1"
                 style="@style/AutoCompleteTextView_style"
                 android:hint="@string/hint_lab_address1"
@@ -38,6 +49,19 @@
                 style="@style/AutoCompleteTextView_style"
                 android:hint="@string/hint_lab_address2"
                 android:inputType="text|textCapWords"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout_style">
+
+        <AutoCompleteTextView
+                android:id="@+id/edit_text_lab_services"
+                style="@style/AutoCompleteTextView_style"
+                android:spinnerMode="dropdown"
+                android:overlapAnchor="false"
+                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                android:hint="@string/hint_lab_services"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

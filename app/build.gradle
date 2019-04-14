@@ -47,6 +47,8 @@ dependencies {
 
     implementation 'br.com.simplepass:loading-button-android:2.1.0'  //circular process
 
+    implementation 'com.afollestad.material-dialogs:core:2.7.0'  //Material Dialogs core
+
 
     def lifecycle_version = "2.0.0"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"

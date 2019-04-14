@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.refer.android.refer9.utils.ToastServices
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.listItemsMultiChoice
+import com.refer.android.refer9.R
 import com.refer.android.refer9.viewModels.HealthRegisterModel
 import kotlinx.android.synthetic.main.fragment_lab_register.view.*
 import java.util.*
@@ -24,8 +27,9 @@ class LabRegisterFragment : Fragment(), OnSelectDateListener {
 
     private lateinit var viewModel: HealthRegisterModel
 
+    private var servicesList: String = ""
+
     override fun onSelectDate(day: Int, month: Int, year: Int) {
-        ToastServices.customToastSuccess(requireContext(), "$year")
         date = "$day/$month/$year"
         rootView.edit_text_lab_reg_date.setText(date)
         rootView.edit_text_lab_reg_date.isFocusable = false
@@ -43,11 +47,31 @@ class LabRegisterFragment : Fragment(), OnSelectDateListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(com.refer.android.refer9.R.layout.fragment_lab_register, container, false)
+        rootView = inflater.inflate(R.layout.fragment_lab_register, container, false)
 
         viewModel.getFragmentTitle().observe(this, Observer { title ->
             rootView.title_fragment_lab.text = title
         })
+
+        rootView.edit_text_lab_services.isFocusable = false
+        rootView.edit_text_lab_services.isFocusableInTouchMode = true
+        rootView.edit_text_lab_services.inputType=InputType.TYPE_NULL
+        rootView.edit_text_lab_services.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                servicesList = ""
+                MaterialDialog(requireContext()).show {
+                    listItemsMultiChoice(R.array.services_list) { _, _, items ->
+                        for (i in items) {
+                            servicesList += "$i, "
+                        }
+                        servicesList = servicesList.substring(0, servicesList.length - 2)
+                        rootView.edit_text_lab_services.setText(servicesList)
+                    }
+                    positiveButton(R.string.select)
+                    title(R.string.title_services_list_dialog)
+                }
+            }
+        }
 
         rootView.edit_text_lab_reg_date.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
