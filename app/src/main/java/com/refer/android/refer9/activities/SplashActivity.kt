@@ -10,8 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.refer.android.refer9.models.MessageEvent
 import com.refer.android.refer9.utils.MySharedPreferences
+import com.refer.android.refer9.utils.NetConnectionServices
 import com.refer.android.refer9.utils.ToastServices
 import com.refer.android.refer9.viewModels.ProfileViewModel
+import kotlinx.android.synthetic.main.activity_splash.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -20,6 +22,7 @@ import org.greenrobot.eventbus.ThreadMode
 class SplashActivity : AppCompatActivity() {
 
     private val mWaitHandler = Handler()
+    private var errStatus: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -42,65 +45,55 @@ class SplashActivity : AppCompatActivity() {
         Log.d("Splash", "loginGmail : $loginTypeGmail")
 
         if (loginStatus!! && loginTypeEmail!!) {
+            openNext("email")
             viewModel.userProfile(token!!).observe(this, Observer { userProfileResponse ->
                 userProfileResponse?.let {
                     MySharedPreferences.setPref(this, "USER_NAME_EMAIL", it.name)
                     MySharedPreferences.setPref(this, "USER_ID", it.id)
-                    openHomeWithEmail()
+                    errStatus = false
                 }
             })
         } else if (loginTypeGmail!!) {
-            openHomeWithGoogle()
+            openNext("gmail")
         } else if (loginSkip!!) {
-            openHome()
+            openNext("skip")
         } else if (!loginStatus && !loginSkip) {
-            openLoginActivity()
+            openNext(" ")
         } else {
-            delayFunc()
-            openLoginActivity()
+            openNext(" ")
         }
     }
 
-    private fun delayFunc() {
+    private fun openNext(openType: String) {
         mWaitHandler.postDelayed({
             try {
-//                val intent = Intent(applicationContext, MainActivity::class.java)
-//                startActivity(intent)
-//                finish()
+                if (!errStatus && NetConnectionServices.isNetworkConnected(this)) {
+                    when (openType) {
+                        "email" -> {
+                            val intent = Intent(applicationContext, MainActivity::class.java)
+                            intent.putExtra("email", true)
+                            startActivity(intent)
+                        }
+                        "gmail" -> {
+                            val intent = Intent(applicationContext, MainActivity::class.java)
+                            intent.putExtra("gmail", true)
+                            startActivity(intent)
+                        }
+                        "skip" -> {
+                            val intent = Intent(applicationContext, MainActivity::class.java)
+                            startActivity(intent)
+                        }
+                        else -> {
+                            val intent = Intent(applicationContext, LoginActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                    finish()
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }, 3000)
-    }
-
-    private fun openHomeWithEmail() {
-        val intent = Intent(applicationContext, MainActivity::class.java)
-        intent.putExtra("email", true)
-        startActivity(intent)
-        finish()
-    }
-
-    private fun openHomeWithGoogle() {
-        delayFunc()
-        val intent = Intent(applicationContext, MainActivity::class.java)
-        intent.putExtra("gmail", true)
-        startActivity(intent)
-        finish()
-    }
-
-    private fun openHome() {
-        delayFunc()
-        val intent = Intent(applicationContext, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-
-    private fun openLoginActivity() {
-        delayFunc()
-        val intent = Intent(applicationContext, LoginActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
     override fun onDestroy() {
@@ -121,6 +114,8 @@ class SplashActivity : AppCompatActivity() {
     @Suppress("UNUSED")
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: MessageEvent) {
-        ToastServices.customToastError(this,event.message)
+        ToastServices.customToastError(this, event.message)
+        errStatus = true
+        text_err_splash.text= event.message
     }
 }

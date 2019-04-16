@@ -5,9 +5,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingStart="@dimen/_20sdp"
+        android:paddingEnd="@dimen/_20sdp"
         android:id="@+id/signUp_fragment_id"
         android:orientation="vertical"
         tools:context=".fragments.SignUpFragment">
@@ -61,16 +61,32 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <CheckBox
+            android:id="@+id/checkbox_sign_up"
+            android:text="@string/sign_up_services_provider_checked_text"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:padding="@dimen/_4sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/domain_spinner"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
     <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             style="@style/LoginButtons"
             android:id="@+id/signUp_button"
             android:text="@string/register"
             android:background="@drawable/button_shape"
-            android:elevation="6dp"
-            app:spinning_bar_width="4dp"
+            android:elevation="@dimen/_6sdp"
+            app:spinning_bar_width="@dimen/_4sdp"
             app:spinning_bar_color="#FFF"
-            app:spinning_bar_padding="2dp"
-            app:initialCornerAngle="30dp"/>
+            app:spinning_bar_padding="@dimen/_2sdp"
+            app:initialCornerAngle="@dimen/_30sdp"/>
 
     <TextView
             android:id="@+id/login_link_text"

@@ -60,15 +60,14 @@ class LogInRepository {
         return logInResponse
     }
 
-    fun setSignUp(name: String, email: String, password: String): LiveData<SignUpResponseBody> {
+    fun setSignUp(name: String, email: String, password: String, userType: String): LiveData<SignUpResponseBody> {
         val client = getClient().create(LoginApi::class.java)
-        val call = client.signUp(SignUpRequestBody(name, email, password))
+        val call = client.signUp(SignUpRequestBody(name, email, password, userType))
 
         call.enqueue(object : Callback<SignUpResponseBody> {
             override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
                 val errMsg = if (t is SocketTimeoutException) {
                     "Socket Time out. Please try again."
-
                 } else {
                     t.localizedMessage
                 }

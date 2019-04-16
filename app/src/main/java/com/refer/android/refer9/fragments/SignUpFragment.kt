@@ -10,6 +10,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -35,6 +37,8 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
 
     private lateinit var viewModel: LoginViewModel
 
+    private var isServiceProviderChecked = false
+
     private var isNameValid: Boolean = false
     private var isEmailValid: Boolean = false
     private var isPasswordValid: Boolean = false
@@ -52,7 +56,7 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
     @Suppress("UNUSED")
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: MessageEvent) {
-        ToastServices.customToastError(requireContext(),event.message)
+        ToastServices.customToastError(requireContext(), event.message)
         rootView.signUp_button.revertAnimation()
     }
 
@@ -84,6 +88,9 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
 
         setSignInText()
 
+
+        rootView.domain_spinner.visibility = View.GONE
+
         rootView.signUp_confirm_password_box.addTextChangedListener(textWatcher)
 
         rootView.signUp_button.isEnabled = false
@@ -93,8 +100,45 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
         }
 
         rootView.signUp_button.setOnClickListener {
-                register()
+            register()
         }
+
+        rootView.checkbox_sign_up.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                isServiceProviderChecked = true
+                rootView.domain_spinner.visibility = View.VISIBLE
+            } else {
+                rootView.domain_spinner.visibility = View.GONE
+                rootView.domain_spinner.setSelection(0)
+            }
+        }
+
+        val domainList = ArrayList<String>()
+        domainList.add("Select Domain")
+        domainList.add("Education")
+        domainList.add("Finance")
+        domainList.add("Grooming")
+        domainList.add("Health")
+
+        val dataAdapter =
+            object : ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item, domainList) {
+                override fun isEnabled(position: Int): Boolean {
+                    return position != 0
+                }
+
+                override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view = super.getDropDownView(position, convertView, parent)
+                    val textView = view as TextView
+                    if (position == 0) {
+                        textView.setTextColor(Color.GRAY)
+                    } else {
+                        textView.setTextColor(Color.BLACK)
+                    }
+                    return view
+                }
+            }
+
+        rootView.domain_spinner.adapter = dataAdapter
 
         rootView.signUp_name_box.onFocusChangeListener = this
         rootView.signUp_email_box.onFocusChangeListener = this
@@ -114,12 +158,18 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
         val name = signUp_name_box.text.toString()
         val email = signUp_email_box.text.toString().trim { it <= ' ' }
         val password = signUp_password_box.text.toString().trim { it <= ' ' }
+        var userType = "normal"
+        if (isServiceProviderChecked) {
+            userType = rootView.domain_spinner.selectedItem.toString()
+        }
 
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-            viewModel.signUp(name, email, password).observe(this, Observer { signUpResponse ->
+            viewModel.signUp(name, email, password, userType).observe(this, Observer { signUpResponse ->
                 signUpResponse?.let {
                     onSuccessRegister(email, password)
-                    val icon = BitmapFactory.decodeResource(requireContext().resources, R.drawable.ic_check)
+                    val icon = BitmapFactory.decodeResource(
+                        requireContext().resources, R.drawable.ic_check
+                    )
                     rootView.signUp_button.doneLoadingAnimation(Color.GREEN, icon)
                 }
             })
@@ -129,14 +179,14 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
         }
     }
 
-    private fun onSuccessRegister(email:String, password:String){
+    private fun onSuccessRegister(email: String, password: String) {
         viewModel.signIn(email, password).observe(this, Observer { logInResponse ->
             logInResponse?.let {
-                MySharedPreferences.setPref(requireContext(),"LOGIN_STATUS",true)
+                MySharedPreferences.setPref(requireContext(), "LOGIN_STATUS", true)
                 MySharedPreferences.setPref(requireContext(), "USER_TOKEN", it.accessToken)
-                MySharedPreferences.setPref(requireContext(),"LOGIN_TYPE_EMAIL",true)
+                MySharedPreferences.setPref(requireContext(), "LOGIN_TYPE_EMAIL", true)
                 val i = Intent(activity, MainActivity::class.java)
-                i.putExtra("login",true)
+                i.putExtra("login", true)
                 startActivity(i)
             }
         })
