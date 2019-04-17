@@ -108,6 +108,7 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
                 isServiceProviderChecked = true
                 rootView.domain_spinner.visibility = View.VISIBLE
             } else {
+                isServiceProviderChecked = false
                 rootView.domain_spinner.visibility = View.GONE
                 rootView.domain_spinner.setSelection(0)
             }
@@ -160,7 +161,7 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
         val password = signUp_password_box.text.toString().trim { it <= ' ' }
         var userType = "normal"
         if (isServiceProviderChecked) {
-            userType = rootView.domain_spinner.selectedItem.toString()
+            userType = rootView.domain_spinner.selectedItem.toString().toLowerCase()
         }
 
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {

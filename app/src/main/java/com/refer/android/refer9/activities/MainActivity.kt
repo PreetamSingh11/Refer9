@@ -94,6 +94,9 @@ class MainActivity : AppCompatActivity() {
             }
             navigationView.menu.findItem(R.id.signOut).isEnabled = true
             navigationView.menu.findItem(R.id.refer_details).isEnabled = true
+            navigationView.getHeaderView(0).userProfile.setOnClickListener {
+                profile()
+            }
         } else {
             navigationView.getHeaderView(0).userName.text =
                 resources.getString(R.string.anonymous)
@@ -108,6 +111,11 @@ class MainActivity : AppCompatActivity() {
     @Suppress("UNUSED_PARAMETER")
     private fun login() {
         val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun profile() {
+        val intent = Intent(this, ProfileActivity::class.java)
         startActivity(intent)
     }
 
