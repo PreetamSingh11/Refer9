@@ -2,9 +2,11 @@ package com.refer.android.refer9.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseAuth
@@ -18,9 +20,32 @@ import kotlinx.android.synthetic.main.navigation_header.view.*
 
 class MainActivity : AppCompatActivity() {
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.toolbar_items, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_notification -> {
+            ToastServices.customToastInfo(this,"notifications")
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setSupportActionBar(findViewById(R.id.my_toolbar))
+        supportActionBar?.setDisplayShowTitleEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val mDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, my_toolbar, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(mDrawerToggle)
+        mDrawerToggle.syncState()
 
         val viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
 
@@ -49,11 +74,7 @@ class MainActivity : AppCompatActivity() {
             else -> setUserProfile()
         }
 
-        menu_icon.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
-
-        navigationView.setNavigationItemSelectedListener { menuItem ->
+        navigationDrawer.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
             drawerLayout.closeDrawers()
             when (menuItem.itemId) {
@@ -87,22 +108,21 @@ class MainActivity : AppCompatActivity() {
         if (MySharedPreferences.getPref(this, "LOGIN_STATUS", false)!!) {
             if (MySharedPreferences.getPref(this, "LOGIN_TYPE_EMAIL", false)!!) {
                 val userNameValue = MySharedPreferences.getPref(this, "USER_NAME_EMAIL", "Anonymous!!")
-                navigationView.getHeaderView(0).userName.text = userNameValue
+                navigationDrawer.getHeaderView(0).userName.text = userNameValue
             } else {
                 val userNameValue = MySharedPreferences.getPref(this, "GOOGLE_USER_NAME", "Anonymous!!!")
-                navigationView.getHeaderView(0).userName.text = userNameValue
+                navigationDrawer.getHeaderView(0).userName.text = userNameValue
             }
-            navigationView.menu.findItem(R.id.signOut).isEnabled = true
-            navigationView.menu.findItem(R.id.refer_details).isEnabled = true
-            navigationView.getHeaderView(0).userProfile.setOnClickListener {
+            navigationDrawer.menu.findItem(R.id.signOut).isEnabled = true
+            navigationDrawer.menu.findItem(R.id.refer_details).isEnabled = true
+            navigationDrawer.getHeaderView(0).userProfile.setOnClickListener {
                 profile()
             }
         } else {
-            navigationView.getHeaderView(0).userName.text =
-                resources.getString(R.string.anonymous)
-            navigationView.menu.findItem(R.id.signOut).isEnabled = false
-            navigationView.menu.findItem(R.id.refer_details).isEnabled = false
-            navigationView.getHeaderView(0).userProfile.setOnClickListener {
+            navigationDrawer.getHeaderView(0).userName.text = resources.getString(R.string.anonymous)
+            navigationDrawer.menu.findItem(R.id.signOut).isEnabled = false
+            navigationDrawer.menu.findItem(R.id.refer_details).isEnabled = false
+            navigationDrawer.getHeaderView(0).userProfile.setOnClickListener {
                 login()
             }
         }

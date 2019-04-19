@@ -17,12 +17,14 @@ import kotlinx.android.synthetic.main.activity_splash.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.concurrent.TimeUnit
 
 
 class SplashActivity : AppCompatActivity() {
 
     private val mWaitHandler = Handler()
     private var errStatus: Boolean = false
+    private  val startTime = System.currentTimeMillis()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -97,6 +99,9 @@ class SplashActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        val stopTime = System.currentTimeMillis()
+        val totalTime = stopTime - startTime
+        Log.d("Splash", "Total Time : ${TimeUnit.MILLISECONDS.toSeconds(totalTime)} Seconds")
         mWaitHandler.removeCallbacksAndMessages(null)
         super.onDestroy()
     }

@@ -6,216 +6,152 @@
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         tools:context=".activities.MainActivity">
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
             android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/my_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorPrimary"
+                    android:elevation="4dp"
+                    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                android:elevation="6dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:gravity="center_vertical"
-                android:outlineProvider="bounds">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-200dp">
 
-            <ImageButton
-                    android:id="@+id/menu_icon"
-                    android:src="@drawable/ic_menu_black_24dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:background="@android:color/transparent"/>
-
-            <ImageView
-                    android:src="@drawable/ic_logo"
+            <fragment
+                    android:name="com.refer.android.refer9.fragments.ChartFragment"
+                    android:id="@+id/fragment_layout_id"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"/>
-
-            <ImageView
-                    android:src="@drawable/ic_notifications_black_24dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:padding="6dp"/>
+                    android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 
-        <View
+        <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@drawable/shadow"/>
+                android:layout_height="wrap_content">
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:weightSum="10"
-                android:orientation="vertical">
-
-            <LinearLayout
+            <View
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="4"
-                    android:orientation="vertical">
+                    android:layout_height="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:background="@android:color/darker_gray"/>
 
-                <LinearLayout
-                        android:layout_marginTop="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center">
+            <GridLayout
+                    style="@style/GridLayout_style">
 
-                    <View
-                            style="@style/ColorView_style"
-                            android:background="@drawable/success_circle"/>
+                <com.google.android.material.card.MaterialCardView
+                        style="@style/CardView_style"
+                        android:onClick="openFinance">
 
-                    <TextView
-                            style="@style/ColorText_style"
-                            android:text="Successful"/>
+                    <LinearLayout
+                            style="@style/LinearLayoutHome_style"
+                            tools:ignore="UseCompoundDrawables">
 
-                    <View
-                            style="@style/ColorView_style"
-                            android:background="@drawable/pending_circle"/>
+                        <ImageView
+                                style="@style/ServicesLogoImage_style"
+                                android:src="@drawable/finance_icon"
+                                android:contentDescription="@string/finance_icon_desc"/>
 
-                    <TextView
-                            style="@style/ColorText_style"
-                            android:text="Pending"/>
+                        <TextView
+                                style="@style/ServicesLogoText_style"
+                                android:text="@string/finance"/>
 
-                    <View
-                            style="@style/ColorView_style"
-                            android:background="@drawable/unsuccess_circle"/>
-
-                    <TextView
-                            style="@style/ColorText_style"
-                            android:text="UnSuccessful"/>
-                </LinearLayout>
-
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="-160dp">
-
-                    <fragment
-                            android:name="com.refer.android.refer9.fragments.ChartFragment"
-                            android:id="@+id/fragment_layout_id"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="6">
-
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@android:color/darker_gray"/>
-
-                <GridLayout
-                        style="@style/GridLayout_style">
-
-                    <com.google.android.material.card.MaterialCardView
-                            style="@style/CardView_style"
-                            android:onClick="openFinance">
-
-                        <LinearLayout
-                                style="@style/LinearLayoutHome_style">
-
-                            <ImageView
-                                    style="@style/ServicesLogoImage_style"
-                                    android:src="@drawable/finance_icon"
-                                    android:contentDescription="@string/finance_icon_desc"/>
-
-                            <TextView
-                                    style="@style/ServicesLogoText_style"
-                                    android:text="@string/finance"/>
-
-                        </LinearLayout>
+                    </LinearLayout>
 
 
-                    </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                    <com.google.android.material.card.MaterialCardView
-                            style="@style/CardView_style"
-                            android:onClick="openHealth">
+                <com.google.android.material.card.MaterialCardView
+                        style="@style/CardView_style"
+                        android:onClick="openHealth">
 
-                        <LinearLayout
-                                style="@style/LinearLayoutHome_style">
+                    <LinearLayout
+                            style="@style/LinearLayoutHome_style"
+                            tools:ignore="UseCompoundDrawables">
 
-                            <ImageView
-                                    style="@style/ServicesLogoImage_style"
-                                    android:src="@drawable/health_icon"/>
+                        <ImageView
+                                style="@style/ServicesLogoImage_style"
+                                android:src="@drawable/health_icon"
+                                android:contentDescription="@string/health_icon_desc"/>
 
-                            <TextView
-                                    style="@style/ServicesLogoText_style"
-                                    android:text="Health"/>
+                        <TextView
+                                style="@style/ServicesLogoText_style"
+                                android:text="@string/label_health"/>
 
-                        </LinearLayout>
+                    </LinearLayout>
 
-                    </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                    <com.google.android.material.card.MaterialCardView
-                            style="@style/CardView_style"
-                            android:onClick="openGrooming">
+                <com.google.android.material.card.MaterialCardView
+                        style="@style/CardView_style"
+                        android:onClick="openGrooming">
 
-                        <LinearLayout
-                                style="@style/LinearLayoutHome_style">
+                    <LinearLayout
+                            style="@style/LinearLayoutHome_style"
+                            tools:ignore="UseCompoundDrawables">
 
-                            <ImageView
-                                    style="@style/ServicesLogoImage_style"
-                                    android:src="@drawable/groom"/>
+                        <ImageView
+                                style="@style/ServicesLogoImage_style"
+                                android:src="@drawable/groom"
+                                android:contentDescription="@string/grooming_icon_desc"/>
 
-                            <TextView
-                                    style="@style/ServicesLogoText_style"
-                                    android:text="Grooming"/>
+                        <TextView
+                                style="@style/ServicesLogoText_style"
+                                android:text="@string/label_grooming"/>
 
-                        </LinearLayout>
+                    </LinearLayout>
 
-                    </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                    <com.google.android.material.card.MaterialCardView
-                            style="@style/CardView_style"
-                            android:onClick="openOthers">
+                <com.google.android.material.card.MaterialCardView
+                        style="@style/CardView_style"
+                        android:onClick="openOthers">
 
-                        <LinearLayout
-                                style="@style/LinearLayoutHome_style">
+                    <LinearLayout
+                            style="@style/LinearLayoutHome_style"
+                            tools:ignore="UseCompoundDrawables">
 
-                            <ImageView
-                                    style="@style/ServicesLogoImage_style"
-                                    android:src="@drawable/etc"/>
+                        <ImageView
+                                style="@style/ServicesLogoImage_style"
+                                android:src="@drawable/etc"
+                                android:contentDescription="@string/others_icon_desc"/>
 
-                            <TextView
-                                    style="@style/ServicesLogoText_style"
-                                    android:text="Others"/>
+                        <TextView
+                                style="@style/ServicesLogoText_style"
+                                android:text="@string/label_others"/>
 
-                        </LinearLayout>
+                    </LinearLayout>
 
-                    </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                </GridLayout>
-            </RelativeLayout>
-
-        </LinearLayout>
+            </GridLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigationView"
+            android:id="@+id/navigationDrawer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="false"
+            android:fitsSystemWindows="true"
             app:headerLayout="@layout/navigation_header"
             app:menu="@menu/navigation_items"/>
+
 </androidx.drawerlayout.widget.DrawerLayout>

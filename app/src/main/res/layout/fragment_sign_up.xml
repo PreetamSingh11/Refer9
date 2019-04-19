@@ -50,6 +50,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signUp_confirm_password_box_layout"
             style="@style/TextBox_style"
             app:passwordToggleEnabled="true"
             android:hint="@string/prompt_confirm_password">

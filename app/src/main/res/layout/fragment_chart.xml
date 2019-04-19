@@ -6,9 +6,40 @@
         android:layout_height="wrap_content"
         tools:context=".fragments.ChartFragment">
 
+    <LinearLayout
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+        <View
+                style="@style/ColorView_style"
+                android:background="@drawable/success_circle"/>
+
+        <TextView
+                style="@style/ColorText_style"
+                android:text="@string/successful"/>
+
+        <View
+                style="@style/ColorView_style"
+                android:background="@drawable/pending_circle"/>
+
+        <TextView
+                style="@style/ColorText_style"
+                android:text="@string/pending"/>
+
+        <View
+                style="@style/ColorView_style"
+                android:background="@drawable/un_success_circle"/>
+
+        <TextView
+                style="@style/ColorText_style"
+                android:text="@string/unSuccessful"/>
+    </LinearLayout>
+
     <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/fragment_chart"
             android:layout_width="match_parent"
-            android:layout_height="500dp"/>
+            android:layout_height="@dimen/_400sdp"/>
 
 </RelativeLayout>
