@@ -1,112 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/_16sdp"
+        android:fillViewport="true"
         tools:context=".fragments.DoctorRegisterFragment">
 
-    <TextView
-            android:id="@+id/title_fragment_doctor"
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:textStyle="bold"
-            android:gravity="center"
-            tools:text="@string/doc_registration_heading"/>
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp">
 
-    <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout_style">
+        <TextView
+                android:id="@+id/title_fragment_doctor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"
+                android:gravity="center"
+                tools:text="@string/doc_registration_heading"/>
 
-        <AutoCompleteTextView
-                android:id="@+id/edit_text_doc_name"
-                style="@style/AutoCompleteTextView_style"
-                android:hint="@string/hint_doc_name"
-                android:inputType="textPersonName|textCapWords"/>
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_name"
+                    style="@style/AutoCompleteTextView_style"
+                    android:hint="@string/hint_doc_name"
+                    android:inputType="textPersonName|textCapWords"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout_style">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <AutoCompleteTextView
-                android:id="@+id/edit_text_doc_register_no"
-                style="@style/AutoCompleteTextView_style"
-                android:hint="@string/hint_doc_register_no"
-                android:inputType="text"/>
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_register_no"
+                    style="@style/AutoCompleteTextView_style"
+                    android:hint="@string/hint_doc_register_no"
+                    android:inputType="text"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout_style">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <AutoCompleteTextView
-                android:id="@+id/edit_text_doc_type"
-                style="@style/AutoCompleteTextView_style"
-                android:spinnerMode="dropdown"
-                android:overlapAnchor="false"
-                android:hint="@string/hint_doc_type"/>
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_type"
+                    style="@style/AutoCompleteTextView_style"
+                    android:spinnerMode="dropdown"
+                    android:overlapAnchor="false"
+                    android:hint="@string/hint_doc_type"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout_style">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <AutoCompleteTextView
-                android:id="@+id/edit_text_doc_sub_type"
-                style="@style/AutoCompleteTextView_style"
-                android:spinnerMode="dropdown"
-                android:overlapAnchor="false"
-                android:hint="@string/hint_doc_sub_type"/>
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_sub_type"
+                    style="@style/AutoCompleteTextView_style"
+                    android:spinnerMode="dropdown"
+                    android:overlapAnchor="false"
+                    android:hint="@string/hint_doc_sub_type"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout_style">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <AutoCompleteTextView
-                android:id="@+id/edit_text_doc_year"
-                style="@style/AutoCompleteTextView_style"
-                android:hint="@string/hint_doc_passing_year"
-                android:maxLength="4"
-                android:inputType="number"/>
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_year"
+                    style="@style/AutoCompleteTextView_style"
+                    android:hint="@string/hint_doc_passing_year"
+                    android:maxLength="4"
+                    android:inputType="number"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout_style">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <AutoCompleteTextView
-                android:id="@+id/edit_text_doc_college"
-                style="@style/AutoCompleteTextView_style"
-                android:hint="@string/hint_doc_college"
-                android:inputType="textCapWords"/>
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_college"
+                    style="@style/AutoCompleteTextView_style"
+                    android:hint="@string/hint_doc_college"
+                    android:inputType="textCapWords"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout_style">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <AutoCompleteTextView
-                android:id="@+id/edit_text_doc_reg_date"
-                style="@style/AutoCompleteTextView_style"
-                android:hint="@string/hint_doc_register_date"/>
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout_style">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <AutoCompleteTextView
+                    android:id="@+id/edit_text_doc_reg_date"
+                    style="@style/AutoCompleteTextView_style"
+                    android:hint="@string/hint_doc_register_date"/>
 
-    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-            style="@style/LoginButtons"
-            android:id="@+id/btn_doc_register"
-            android:text="@string/register"
-            android:background="@drawable/button_shape"
-            android:elevation="6dp"
-            app:spinning_bar_width="4dp"
-            app:spinning_bar_color="#FFF"
-            app:spinning_bar_padding="2dp"
-            app:initialCornerAngle="30dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-</LinearLayout>
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                style="@style/LoginButtons"
+                android:id="@+id/btn_doc_register"
+                android:text="@string/register"
+                android:background="@drawable/button_shape"
+                android:elevation="6dp"
+                app:spinning_bar_width="4dp"
+                app:spinning_bar_color="#FFF"
+                app:spinning_bar_padding="2dp"
+                app:initialCornerAngle="30dp"/>
+
+    </LinearLayout>
+</ScrollView>

@@ -42,6 +42,7 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
     private var isNameValid: Boolean = false
     private var isEmailValid: Boolean = false
     private var isPasswordValid: Boolean = false
+    private var userType = "normal"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         viewModel = activity?.run {
@@ -142,7 +143,6 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
         val password = signUp_password_box.text.toString().trim { it <= ' ' }
         val confirmPassword = signUp_confirm_password_box.text.toString().trim { it <= ' ' }
 
-        var userType = "normal"
         if (isServiceProviderChecked) {
             userType = rootView.domain_spinner.selectedItem.toString().toLowerCase()
         }
@@ -186,9 +186,10 @@ class SignUpFragment : Fragment(), View.OnFocusChangeListener {
     private fun onSuccessRegister(email: String, password: String) {
         viewModel.signIn(email, password).observe(this, Observer { logInResponse ->
             logInResponse?.let {
-                MySharedPreferences.setPref(requireContext(), "LOGIN_STATUS", true)
-                MySharedPreferences.setPref(requireContext(), "USER_TOKEN", it.accessToken)
-                MySharedPreferences.setPref(requireContext(), "LOGIN_TYPE_EMAIL", true)
+                MySharedPreferences.setPref(ctx, "LOGIN_STATUS", true)
+                MySharedPreferences.setPref(ctx, "USER_TOKEN", it.accessToken)
+                MySharedPreferences.setPref(ctx, "LOGIN_TYPE_EMAIL", true)
+                MySharedPreferences.setPref(ctx, "LOGIN_USER_TYPE", userType)
                 val i = Intent(activity, MainActivity::class.java)
                 i.putExtra("login", true)
                 startActivity(i)

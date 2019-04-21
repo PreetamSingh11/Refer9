@@ -39,12 +39,16 @@ class SplashActivity : AppCompatActivity() {
         val token = MySharedPreferences.getPref(this, "USER_TOKEN", "NOT available")
         val loginTypeEmail = MySharedPreferences.getPref(this, "LOGIN_TYPE_EMAIL", false)
         val loginTypeGmail = MySharedPreferences.getPref(this, "LOGIN_TYPE_GMAIL", false)
+        val userType = MySharedPreferences.getPref(this,"LOGIN_USER_TYPE","NOT available")
+        val providerReg = MySharedPreferences.getPref(this, "PROVIDER_REGISTERED", false)
 
         Log.d("Splash", "loginStatus : $loginStatus")
         Log.d("Splash", "loginSkip : $loginSkip")
         Log.d("Splash", "token : $token")
         Log.d("Splash", "loginEmail : $loginTypeEmail")
         Log.d("Splash", "loginGmail : $loginTypeGmail")
+        Log.d("Splash", "userType : $userType")
+        Log.d("Splash", "services provider registered : $providerReg")
 
         if (loginStatus!! && loginTypeEmail!!) {
             openNext("email")
@@ -52,6 +56,11 @@ class SplashActivity : AppCompatActivity() {
                 userProfileResponse?.let {
                     MySharedPreferences.setPref(this, "USER_NAME_EMAIL", it.name)
                     MySharedPreferences.setPref(this, "USER_ID", it.id)
+                    if (!it.is_registered && it.user_type == "health"){
+                        val i = Intent(this,HealthActivity::class.java)
+                        startActivity(i)
+                        finish()
+                    }
                     errStatus = false
                 }
             })

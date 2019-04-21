@@ -11,7 +11,7 @@ import com.refer.android.refer9.utils.MySharedPreferences
 import com.refer.android.refer9.utils.ToastServices
 import com.refer.android.refer9.viewModels.HealthRegisterModel
 
-class RegisterActivity : AppCompatActivity() {
+class HealthRegisterActivity : AppCompatActivity() {
 
     private lateinit var viewModel: HealthRegisterModel
 

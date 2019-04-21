@@ -68,6 +68,10 @@ class MainActivity : AppCompatActivity() {
                         MySharedPreferences.setPref(this, "USER_NAME_EMAIL", it.name)
                         MySharedPreferences.setPref(this, "USER_ID", it.id)
                         setUserProfile()
+                        if (!it.is_registered && it.user_type == "health"){
+                            val i = Intent(this,HealthActivity::class.java)
+                            startActivity(i)
+                        }
                     }
                 })
             }

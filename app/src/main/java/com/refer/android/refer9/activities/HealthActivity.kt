@@ -26,7 +26,7 @@ class HealthActivity : AppCompatActivity() {
         }
     }
     private fun openRegister(msg:String){
-        val intent = Intent(this,RegisterActivity::class.java)
+        val intent = Intent(this,HealthRegisterActivity::class.java)
         intent.putExtra("Fragment",msg)
         startActivity(intent)
     }
